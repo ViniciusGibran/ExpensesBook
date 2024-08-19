@@ -16,6 +16,12 @@
 		9131DCA52C7369460056732F /* ExpensesBookUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCA42C7369460056732F /* ExpensesBookUITestsLaunchTests.swift */; };
 		9131DCB82C736EBF0056732F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCB72C736EBF0056732F /* RealmSwift */; };
 		9131DCC82C7384470056732F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9131DCC72C7384470056732F /* Launch Screen.storyboard */; };
+		9131DCCB2C73B8F00056732F /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCCA2C73B8F00056732F /* Expense.swift */; };
+		9131DCCD2C73B91B0056732F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCCC2C73B91B0056732F /* Category.swift */; };
+		9131DCD22C73BA470056732F /* ExpenseModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCD12C73BA470056732F /* ExpenseModelTests.swift */; };
+		9131DCD42C73BA9E0056732F /* CategoryModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCD32C73BA9E0056732F /* CategoryModelTests.swift */; };
+		9131DCD72C73CFE70056732F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCD62C73CFE70056732F /* RealmSwift */; };
+		9131DCD92C73CFE70056732F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCD62C73CFE70056732F /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +41,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9131DCD82C73CFE70056732F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9131DCD92C73CFE70056732F /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		9131DC842C7369430056732F /* ExpensesBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9131DC872C7369430056732F /* ExpensesBookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesBookApp.swift; sourceTree = "<group>"; };
@@ -47,6 +67,10 @@
 		9131DCA22C7369460056732F /* ExpensesBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesBookUITests.swift; sourceTree = "<group>"; };
 		9131DCA42C7369460056732F /* ExpensesBookUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesBookUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9131DCC72C7384470056732F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		9131DCCA2C73B8F00056732F /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
+		9131DCCC2C73B91B0056732F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		9131DCD12C73BA470056732F /* ExpenseModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseModelTests.swift; sourceTree = "<group>"; };
+		9131DCD32C73BA9E0056732F /* CategoryModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9131DCD72C73CFE70056732F /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +107,7 @@
 				9131DC972C7369460056732F /* ExpensesBookTests */,
 				9131DCA12C7369460056732F /* ExpensesBookUITests */,
 				9131DC852C7369430056732F /* Products */,
+				9131DCD52C73CFE70056732F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +143,8 @@
 		9131DC972C7369460056732F /* ExpensesBookTests */ = {
 			isa = PBXGroup;
 			children = (
+				9131DCCF2C73BA290056732F /* Common */,
+				9131DCCE2C73BA240056732F /* Modules */,
 				9131DC982C7369460056732F /* ExpensesBookTests.swift */,
 			);
 			path = ExpensesBookTests;
@@ -144,6 +172,7 @@
 		9131DCBA2C7382C50056732F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9131DCC92C73B8E30056732F /* Models */,
 				9131DCBE2C73831C0056732F /* Repositoires */,
 				9131DCBD2C7382F50056732F /* Services */,
 				9131DCBC2C7382ED0056732F /* Utilities */,
@@ -244,6 +273,46 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		9131DCC92C73B8E30056732F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9131DCCA2C73B8F00056732F /* Expense.swift */,
+				9131DCCC2C73B91B0056732F /* Category.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9131DCCE2C73BA240056732F /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		9131DCCF2C73BA290056732F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				9131DCD02C73BA350056732F /* Models */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		9131DCD02C73BA350056732F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9131DCD12C73BA470056732F /* ExpenseModelTests.swift */,
+				9131DCD32C73BA9E0056732F /* CategoryModelTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9131DCD52C73CFE70056732F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -274,6 +343,7 @@
 				9131DC902C7369460056732F /* Sources */,
 				9131DC912C7369460056732F /* Frameworks */,
 				9131DC922C7369460056732F /* Resources */,
+				9131DCD82C73CFE70056732F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -281,6 +351,9 @@
 				9131DC962C7369460056732F /* PBXTargetDependency */,
 			);
 			name = ExpensesBookTests;
+			packageProductDependencies = (
+				9131DCD62C73CFE70056732F /* RealmSwift */,
+			);
 			productName = ExpensesBookTests;
 			productReference = 9131DC942C7369460056732F /* ExpensesBookTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -381,6 +454,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9131DCCB2C73B8F00056732F /* Expense.swift in Sources */,
+				9131DCCD2C73B91B0056732F /* Category.swift in Sources */,
 				9131DC8A2C7369430056732F /* ContentView.swift in Sources */,
 				9131DC882C7369430056732F /* ExpensesBookApp.swift in Sources */,
 			);
@@ -390,7 +465,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9131DCD22C73BA470056732F /* ExpenseModelTests.swift in Sources */,
 				9131DC992C7369460056732F /* ExpensesBookTests.swift in Sources */,
+				9131DCD42C73BA9E0056732F /* CategoryModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,7 +622,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ExpensesBook/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ExpensesBook/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -576,7 +653,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ExpensesBook/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ExpensesBook/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -609,7 +686,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBookTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -629,7 +706,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBookTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -648,6 +725,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBookUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -666,6 +744,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBookUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -730,6 +809,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		9131DCB72C736EBF0056732F /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9131DCB62C736EBF0056732F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		9131DCD62C73CFE70056732F /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9131DCB62C736EBF0056732F /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
