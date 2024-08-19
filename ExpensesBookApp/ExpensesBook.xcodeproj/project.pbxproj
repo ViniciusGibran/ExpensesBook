@@ -22,6 +22,9 @@
 		9131DCD42C73BA9E0056732F /* CategoryModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCD32C73BA9E0056732F /* CategoryModelTests.swift */; };
 		9131DCD72C73CFE70056732F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCD62C73CFE70056732F /* RealmSwift */; };
 		9131DCD92C73CFE70056732F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCD62C73CFE70056732F /* RealmSwift */; };
+		9131DCDB2C73EA210056732F /* RealmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDA2C73EA210056732F /* RealmDataManager.swift */; };
+		9131DCDD2C73EAEE0056732F /* ExpenseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */; };
+		9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		9131DCCC2C73B91B0056732F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		9131DCD12C73BA470056732F /* ExpenseModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseModelTests.swift; sourceTree = "<group>"; };
 		9131DCD32C73BA9E0056732F /* CategoryModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelTests.swift; sourceTree = "<group>"; };
+		9131DCDA2C73EA210056732F /* RealmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataManager.swift; sourceTree = "<group>"; };
+		9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRepository.swift; sourceTree = "<group>"; };
+		9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHistoryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,8 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				9131DCC92C73B8E30056732F /* Models */,
-				9131DCBE2C73831C0056732F /* Repositoires */,
-				9131DCBD2C7382F50056732F /* Services */,
+				9131DCBE2C73831C0056732F /* Repositories */,
 				9131DCBC2C7382ED0056732F /* Utilities */,
 			);
 			path = Common;
@@ -196,25 +201,21 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		9131DCBD2C7382F50056732F /* Services */ = {
+		9131DCBE2C73831C0056732F /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				9131DCDA2C73EA210056732F /* RealmDataManager.swift */,
+				9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */,
 			);
-			path = Services;
+			path = Repositories;
 			sourceTree = "<group>";
 		};
-		9131DCBE2C73831C0056732F /* Repositoires */ = {
+		9131DCBF2C7383510056732F /* ExpenseHistory */ = {
 			isa = PBXGroup;
 			children = (
+				9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */,
 			);
-			path = Repositoires;
-			sourceTree = "<group>";
-		};
-		9131DCBF2C7383510056732F /* ExpensesHistory */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ExpensesHistory;
+			path = ExpenseHistory;
 			sourceTree = "<group>";
 		};
 		9131DCC02C7383820056732F /* ExpenseCapture */ = {
@@ -243,7 +244,7 @@
 		9131DCC32C7383C90056732F /* Expense */ = {
 			isa = PBXGroup;
 			children = (
-				9131DCBF2C7383510056732F /* ExpensesHistory */,
+				9131DCBF2C7383510056732F /* ExpenseHistory */,
 				9131DCC02C7383820056732F /* ExpenseCapture */,
 				9131DCC12C7383930056732F /* ExpenseDetail */,
 			);
@@ -457,7 +458,10 @@
 				9131DCCB2C73B8F00056732F /* Expense.swift in Sources */,
 				9131DCCD2C73B91B0056732F /* Category.swift in Sources */,
 				9131DC8A2C7369430056732F /* ContentView.swift in Sources */,
+				9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */,
 				9131DC882C7369430056732F /* ExpensesBookApp.swift in Sources */,
+				9131DCDD2C73EAEE0056732F /* ExpenseRepository.swift in Sources */,
+				9131DCDB2C73EA210056732F /* RealmDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
