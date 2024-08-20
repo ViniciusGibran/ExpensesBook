@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9131DC882C7369430056732F /* ExpensesBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DC872C7369430056732F /* ExpensesBookApp.swift */; };
-		9131DC8A2C7369430056732F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DC892C7369430056732F /* ContentView.swift */; };
 		9131DC8C2C7369460056732F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9131DC8B2C7369460056732F /* Assets.xcassets */; };
 		9131DC8F2C7369460056732F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9131DC8E2C7369460056732F /* Preview Assets.xcassets */; };
 		9131DC992C7369460056732F /* ExpensesBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DC982C7369460056732F /* ExpensesBookTests.swift */; };
@@ -27,6 +26,7 @@
 		9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */; };
 		9131DCE12C740DAA0056732F /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE02C740DAA0056732F /* CategoryRepository.swift */; };
 		9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE22C740E390056732F /* CategoryViewModel.swift */; };
+		9131DCE52C75312B0056732F /* ExpenseHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE42C75312B0056732F /* ExpenseHistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +63,6 @@
 /* Begin PBXFileReference section */
 		9131DC842C7369430056732F /* ExpensesBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9131DC872C7369430056732F /* ExpensesBookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesBookApp.swift; sourceTree = "<group>"; };
-		9131DC892C7369430056732F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9131DC8B2C7369460056732F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9131DC8E2C7369460056732F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9131DC942C7369460056732F /* ExpensesBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpensesBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +80,7 @@
 		9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHistoryViewModel.swift; sourceTree = "<group>"; };
 		9131DCE02C740DAA0056732F /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		9131DCE22C740E390056732F /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		9131DCE42C75312B0056732F /* ExpenseHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */,
+				9131DCE42C75312B0056732F /* ExpenseHistoryView.swift */,
 			);
 			path = ExpenseHistory;
 			sourceTree = "<group>";
@@ -275,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				9131DC872C7369430056732F /* ExpensesBookApp.swift */,
-				9131DC892C7369430056732F /* ContentView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -464,11 +464,11 @@
 				9131DCCB2C73B8F00056732F /* Expense.swift in Sources */,
 				9131DCE12C740DAA0056732F /* CategoryRepository.swift in Sources */,
 				9131DCCD2C73B91B0056732F /* Category.swift in Sources */,
-				9131DC8A2C7369430056732F /* ContentView.swift in Sources */,
 				9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */,
 				9131DC882C7369430056732F /* ExpensesBookApp.swift in Sources */,
 				9131DCDD2C73EAEE0056732F /* ExpenseRepository.swift in Sources */,
 				9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */,
+				9131DCE52C75312B0056732F /* ExpenseHistoryView.swift in Sources */,
 				9131DCDB2C73EA210056732F /* RealmDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
