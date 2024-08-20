@@ -25,6 +25,8 @@
 		9131DCDB2C73EA210056732F /* RealmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDA2C73EA210056732F /* RealmDataManager.swift */; };
 		9131DCDD2C73EAEE0056732F /* ExpenseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */; };
 		9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */; };
+		9131DCE12C740DAA0056732F /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE02C740DAA0056732F /* CategoryRepository.swift */; };
+		9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE22C740E390056732F /* CategoryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		9131DCDA2C73EA210056732F /* RealmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataManager.swift; sourceTree = "<group>"; };
 		9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRepository.swift; sourceTree = "<group>"; };
 		9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHistoryViewModel.swift; sourceTree = "<group>"; };
+		9131DCE02C740DAA0056732F /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
+		9131DCE22C740E390056732F /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +210,7 @@
 			children = (
 				9131DCDA2C73EA210056732F /* RealmDataManager.swift */,
 				9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */,
+				9131DCE02C740DAA0056732F /* CategoryRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 			children = (
 				9131DCC52C7384080056732F /* CategoryList */,
 				9131DCC42C7383FF0056732F /* CategoryDetail */,
+				9131DCE22C740E390056732F /* CategoryViewModel.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -456,11 +462,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9131DCCB2C73B8F00056732F /* Expense.swift in Sources */,
+				9131DCE12C740DAA0056732F /* CategoryRepository.swift in Sources */,
 				9131DCCD2C73B91B0056732F /* Category.swift in Sources */,
 				9131DC8A2C7369430056732F /* ContentView.swift in Sources */,
 				9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */,
 				9131DC882C7369430056732F /* ExpensesBookApp.swift in Sources */,
 				9131DCDD2C73EAEE0056732F /* ExpenseRepository.swift in Sources */,
+				9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */,
 				9131DCDB2C73EA210056732F /* RealmDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
