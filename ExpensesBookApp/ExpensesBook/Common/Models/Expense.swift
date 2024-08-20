@@ -16,4 +16,17 @@ class Expense: Object, ObjectKeyIdentifiable {
     @Persisted var category: Category?
     @Persisted var image: Data? = nil
     @Persisted var notes: String? = nil
+    
+    
+    convenience init(name: String,
+         amount: Double,
+         date: Date,
+         category: Category)
+    {
+        self.init()
+        self.name = name
+        self.amount = amount
+        self.date = date
+        self.category = category
+    }
 }
