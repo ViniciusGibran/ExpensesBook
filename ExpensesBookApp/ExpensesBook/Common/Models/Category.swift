@@ -18,7 +18,7 @@ class Category: Object, ObjectKeyIdentifiable {
     var coloredCircle: Text {
         Text("●")
             .foregroundColor(Color(hex: color) ?? .clear)
-            .font(.system(size: 24))
+            .font(.system(size: 18))
     }
     
     convenience init(name: String,
