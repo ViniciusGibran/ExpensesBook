@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExpenseHistoryView: View {
+    @EnvironmentObject var navigationState: NavigationState
     @StateObject private var viewModel = ExpenseHistoryViewModel()
     
     var body: some View {
@@ -16,7 +17,7 @@ struct ExpenseHistoryView: View {
                 // Background list of expenses
                 List {
                     ForEach(viewModel.expensesByMonth.keys.sorted(), id: \.self) { month in
-                        Section(header: Text(month)) {
+                        Section(header: Text(month)) { 
                             ForEach(viewModel.expensesByMonth[month] ?? []) { expense in
                                 ExpenseItemView(expense: expense)
                                     .onTapGesture {
@@ -37,7 +38,7 @@ struct ExpenseHistoryView: View {
                     Spacer()
                     HStack {
                         Button(action: {
-                            // Navigate to capture view (to be implemented)
+                            navigationState.navigationTrigger.send(.showDetail(nil))
                         }) {
                             Image(systemName: "plus")
                                 .font(.largeTitle)
@@ -48,8 +49,6 @@ struct ExpenseHistoryView: View {
                                 .shadow(color: .gray, radius: 4, x: 0, y: 4)
                         }
                         .padding()
-                        
-                        Spacer()
                     }
                 }
             }
@@ -86,7 +85,7 @@ struct ExpenseItemView: View {
                 .font(.system(size: 16))
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Text(String(format: "%.2f", "$\(expense.amount)"))
+            Text("$"+String(format: "%.2f", expense.amount))
                 .font(.system(size: 16))
                 .frame(alignment: .trailing)
             

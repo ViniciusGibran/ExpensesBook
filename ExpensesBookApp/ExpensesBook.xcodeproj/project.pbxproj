@@ -27,6 +27,11 @@
 		9131DCE12C740DAA0056732F /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE02C740DAA0056732F /* CategoryRepository.swift */; };
 		9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE22C740E390056732F /* CategoryViewModel.swift */; };
 		9131DCE52C75312B0056732F /* ExpenseHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE42C75312B0056732F /* ExpenseHistoryView.swift */; };
+		9141CFFA2C75F72300122630 /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141CFF92C75F72300122630 /* NavigationState.swift */; };
+		9141CFFC2C75FD0900122630 /* DocumentCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141CFFB2C75FD0900122630 /* DocumentCameraView.swift */; };
+		9141CFFE2C75FD4800122630 /* CaptureExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141CFFD2C75FD4800122630 /* CaptureExpenseView.swift */; };
+		91A0967E2C76099F00E082DD /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCB72C736EBF0056732F /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		91A096802C76399900E082DD /* ExpenseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A0967F2C76399900E082DD /* ExpenseDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +63,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9141D0002C76074D00122630 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				91A0967E2C76099F00E082DD /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +97,10 @@
 		9131DCE02C740DAA0056732F /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		9131DCE22C740E390056732F /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		9131DCE42C75312B0056732F /* ExpenseHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHistoryView.swift; sourceTree = "<group>"; };
+		9141CFF92C75F72300122630 /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationState.swift; sourceTree = "<group>"; };
+		9141CFFB2C75FD0900122630 /* DocumentCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCameraView.swift; sourceTree = "<group>"; };
+		9141CFFD2C75FD4800122630 /* CaptureExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureExpenseView.swift; sourceTree = "<group>"; };
+		91A0967F2C76399900E082DD /* ExpenseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +247,8 @@
 		9131DCC02C7383820056732F /* ExpenseCapture */ = {
 			isa = PBXGroup;
 			children = (
+				9141CFFB2C75FD0900122630 /* DocumentCameraView.swift */,
+				9141CFFD2C75FD4800122630 /* CaptureExpenseView.swift */,
 			);
 			path = ExpenseCapture;
 			sourceTree = "<group>";
@@ -234,6 +256,7 @@
 		9131DCC12C7383930056732F /* ExpenseDetail */ = {
 			isa = PBXGroup;
 			children = (
+				91A0967F2C76399900E082DD /* ExpenseDetailView.swift */,
 			);
 			path = ExpenseDetail;
 			sourceTree = "<group>";
@@ -276,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				9131DC872C7369430056732F /* ExpensesBookApp.swift */,
+				9141CFF92C75F72300122630 /* NavigationState.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -330,6 +354,7 @@
 				9131DC802C7369430056732F /* Sources */,
 				9131DC812C7369430056732F /* Frameworks */,
 				9131DC822C7369430056732F /* Resources */,
+				9141D0002C76074D00122630 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -463,13 +488,17 @@
 			files = (
 				9131DCCB2C73B8F00056732F /* Expense.swift in Sources */,
 				9131DCE12C740DAA0056732F /* CategoryRepository.swift in Sources */,
+				9141CFFE2C75FD4800122630 /* CaptureExpenseView.swift in Sources */,
 				9131DCCD2C73B91B0056732F /* Category.swift in Sources */,
 				9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */,
 				9131DC882C7369430056732F /* ExpensesBookApp.swift in Sources */,
 				9131DCDD2C73EAEE0056732F /* ExpenseRepository.swift in Sources */,
+				91A096802C76399900E082DD /* ExpenseDetailView.swift in Sources */,
 				9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */,
 				9131DCE52C75312B0056732F /* ExpenseHistoryView.swift in Sources */,
 				9131DCDB2C73EA210056732F /* RealmDataManager.swift in Sources */,
+				9141CFFA2C75F72300122630 /* NavigationState.swift in Sources */,
+				9141CFFC2C75FD0900122630 /* DocumentCameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +667,7 @@
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Give access to your camera to capture and scan receipts for your expenses.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -669,6 +699,7 @@
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Give access to your camera to capture and scan receipts for your expenses.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
