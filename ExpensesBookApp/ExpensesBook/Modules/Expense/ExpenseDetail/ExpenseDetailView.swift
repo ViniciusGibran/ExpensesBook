@@ -9,18 +9,12 @@ import SwiftUI
 
 struct ExpenseDetailView: View {
     @EnvironmentObject var navigationState: NavigationState
-    @State private var name: String = ""
-    @State private var amount: Double = 0.0
-    @State private var date: Date = Date()
-    @State private var category: Category?
-    @State private var notes: String = ""
-    
-    var image: UIImage?
-    
+    @StateObject var viewModel = ExpenseDetailViewModel() // Attach the ViewModel
+
     var body: some View {
         VStack {
-            // Optional Receipt Image Preview
-            if let image = image {
+            // Receipt Image Preview
+            if let image = viewModel.receiptImage {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
@@ -28,20 +22,20 @@ struct ExpenseDetailView: View {
                     .padding(.bottom)
             }
 
-            // Expense Form Fields
+            // Form Fields
             Form {
                 Section(header: Text("Expense Details")) {
-                    TextField("Expense Name", text: $name)
-                    TextField("Amount", value: $amount, format: .currency(code: Locale.current.identifier))
-                    DatePicker("Date", selection: $date, displayedComponents: .date)
+                    TextField("Expense Name", text: $viewModel.expenseName)
+                    TextField("Amount", value: $viewModel.amount, format: .currency(code: Locale.current.identifier))
+                    DatePicker("Date", selection: $viewModel.date, displayedComponents: .date)
                     // Category Picker (to be implemented)
                 }
 
                 Section(header: Text("Notes")) {
-                    TextEditor(text: $notes)
+                    TextEditor(text: $viewModel.notes)
                         .frame(height: 100)
                 }
-                
+
                 // Capture Receipt Button
                 Button(action: {
                     navigationState.navigationTrigger.send(.startCapture)
@@ -62,7 +56,15 @@ struct ExpenseDetailView: View {
             
             // Save Button
             Button("Save") {
-                // Logic to save the expense
+                Task {
+                    do {
+                        try await viewModel.saveExpense()
+                        // Navigate back to the history view after saving
+                        navigationState.navigationTrigger.send(.backToHistory)
+                    } catch {
+                        // Handle save error (e.g., show an alert)
+                    }
+                }
             }
             .font(.headline)
             .padding()
