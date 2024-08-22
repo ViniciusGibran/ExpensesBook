@@ -10,45 +10,19 @@ import SwiftUI
 struct ExpenseHistoryView: View {
     @EnvironmentObject var navigationState: NavigationState
     @StateObject private var viewModel = ExpenseHistoryViewModel()
-    
+
     var body: some View {
         NavigationView {
             ZStack {
-                // Background list of expenses
-                List {
-                    ForEach(viewModel.expensesByMonth.keys.sorted(), id: \.self) { month in
-                        Section(header: Text(month)) { 
-                            ForEach(viewModel.expensesByMonth[month] ?? []) { expense in
-                                ExpenseItemView(expense: expense)
-                                    .onTapGesture {
-                                        // Navigate to edit/capture view (to be implemented)
-                                    }
-                            }
-                            .onDelete { indexSet in
-                                if let expenseToDelete = viewModel.expensesByMonth[month]?[indexSet.first!] {
-                                    viewModel.deleteExpense(expenseToDelete)
-                                }
-                            }
-                        }
-                    }
+                if viewModel.expensesByMonth.isEmpty {
+                    EmptyStateView()
+                } else {
+                    ExpenseListView(viewModel: viewModel)
                 }
-                
-                // Floating action button
-                VStack {
-                    Spacer()
-                    HStack {
-                        Button(action: {
-                            navigationState.navigationTrigger.send(.showDetail(nil))
-                        }) {
-                            Image(systemName: "plus")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.blue)
-                                .clipShape(Circle())
-                                .shadow(color: .gray, radius: 4, x: 0, y: 4)
-                        }
-                        .padding()
+
+                FloatingActionButton {
+                    withAnimation {
+                        navigationState.navigationTrigger.send(.showDetail(nil))
                     }
                 }
             }
@@ -62,12 +36,88 @@ struct ExpenseHistoryView: View {
     }
 }
 
-struct ExpenseHistoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExpenseHistoryView()
+// Subview for the floating action button
+struct FloatingActionButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                //Spacer()
+                Button(action: action) {
+                    Image(systemName: "plus")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .clipShape(Circle())
+                        .shadow(color: .gray, radius: 4, x: 0, y: 4)
+                }
+                .padding()
+            }
+        }
     }
 }
 
+// Subview for the empty state
+struct EmptyStateView: View {
+    var body: some View {
+        GeometryReader { geometry in
+            VStack {
+                Image(systemName: "folder.badge.plus")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 20)
+                
+                Text("No expenses recorded yet")
+                    .font(.title3)
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 10)
+                
+                Text("Tap the + button to add your first expense")
+                    .font(.body)
+                    .foregroundColor(.gray)
+
+                Spacer() // Pushes content to center vertically
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+    }
+}
+
+// Subview for the expense list
+struct ExpenseListView: View {
+    @EnvironmentObject var navigationState: NavigationState
+    @ObservedObject var viewModel: ExpenseHistoryViewModel
+    
+    var body: some View {
+        List {
+            ForEach(sortedMonths, id: \.self) { month in
+                Section(header: Text(month)) {
+                    ForEach(expenses(for: month), id: \.id) { expense in
+                        ExpenseItemView(expense: expense)
+                            .onTapGesture {
+                                navigationState.navigationTrigger.send(.showDetail(expense))
+                            }
+                    }
+                }
+            }
+        }
+    }
+    
+    // Precompute the sorted keys
+    private var sortedMonths: [String] {
+        viewModel.expensesByMonth.keys.sorted()
+    }
+    
+    // Precompute the expenses for a given month
+    private func expenses(for month: String) -> [Expense] {
+        viewModel.expensesByMonth[month] ?? []
+    }
+}
 // MARK: - ExpenseItemView - TODO: Move to own file
 
 struct ExpenseItemView: View {
@@ -98,14 +148,5 @@ struct ExpenseItemView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/EEE" // "18/Mon" format
         return dateFormatter.string(from: date)
-    }
-}
-
-struct ExpenseItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        let sampleCategory = Category(name: "Food", color: "#FF6347")
-        let sampleExpense = Expense(name: "Dinner", amount: 12.50, date: Date(), category: sampleCategory)
-        ExpenseItemView(expense: sampleExpense)
-            .previewLayout(.sizeThatFits)
     }
 }

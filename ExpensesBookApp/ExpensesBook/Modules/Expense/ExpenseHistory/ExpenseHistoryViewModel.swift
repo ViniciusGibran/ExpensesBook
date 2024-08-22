@@ -27,11 +27,12 @@ class ExpenseHistoryViewModel: ObservableObject {
     ]
     
     lazy private var mockExpenses: [Expense] = [
-        Expense(name: "Lunch", amount: 15.0, date: Date(), category: mockCategories[0]),
-        Expense(name: "Taxi", amount: 20.0, date: Date(), category: mockCategories[1]),
-        Expense(name: "Groceries", amount: 50.0, date: Date(), category: mockCategories[0])
+        //Expense(name: "Lunch", amount: 15.0, date: Date(), category: mockCategories[0], ),
+        //Expense(name: "Taxi", amount: 20.0, date: Date(), category: mockCategories[1]),
+        // Expense(name: "Groceries", amount: 50.0, date: Date(), category: mockCategories[0])
     ]
     
+    /*
     func loadExpenses() async {
         await MainActor.run {
             let groupedExpensesByMonth = Dictionary(grouping: mockExpenses) { expense -> String in
@@ -41,7 +42,7 @@ class ExpenseHistoryViewModel: ObservableObject {
             }
             self.expensesByMonth = groupedExpensesByMonth
         }
-    }
+    }*/
     
     func deleteExpense(_ expense: Expense) {
         Task {
@@ -66,7 +67,7 @@ class ExpenseHistoryViewModel: ObservableObject {
         }
     }
     
-    /*func loadExpenses() async {
+    func loadExpenses() async {
         let expenses = await Task.detached { () -> [Expense] in
             return await self.expenseRepository.getAllExpenses()
         }.value
@@ -79,5 +80,5 @@ class ExpenseHistoryViewModel: ObservableObject {
             }
             self.expensesByMonth = groupedExpensesByMonth
         }
-    }*/
+    }
 }
