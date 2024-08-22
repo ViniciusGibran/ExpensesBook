@@ -28,8 +28,8 @@ struct ExpenseCoordinatorView: View {
             ExpenseHistoryView()
         case .capture:
             CaptureExpenseView()
-        case .detail(let image):
-            ExpenseDetailView(image: image)
+        case .detail:
+            ExpenseDetailView()
         }
     }
 }

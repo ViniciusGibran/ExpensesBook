@@ -17,12 +17,12 @@ class NavigationState: ObservableObject {
     enum CurrentView {
         case history
         case capture
-        case detail(UIImage?)
+        case detail(Expense?)
     }
     
     enum NavigationAction {
         case startCapture
-        case showDetail(UIImage?)
+        case showDetail(Expense?)
         case backToHistory
     }
     
@@ -32,8 +32,8 @@ class NavigationState: ObservableObject {
                 switch action {
                 case .startCapture:
                     self?.currentView = .capture
-                case .showDetail(let image):
-                    self?.currentView = .detail(image)
+                case .showDetail(let expense):
+                    self?.currentView = .detail(expense)
                 case .backToHistory:
                     self?.currentView = .history
                 }
