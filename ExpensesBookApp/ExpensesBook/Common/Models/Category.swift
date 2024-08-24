@@ -8,7 +8,7 @@
 import SwiftUI
 import RealmSwift
 
-class Category: Object, ObjectKeyIdentifiable {
+class Category: Object, ObjectKeyIdentifiable, Codable {
     @Persisted(primaryKey: true) var _id: ObjectId = ObjectId.generate()
     @Persisted var name: String = ""
     @Persisted var color: String = ""
@@ -17,19 +17,36 @@ class Category: Object, ObjectKeyIdentifiable {
     
     var coloredCircle: Text {
         Text("●")
-            .foregroundColor(Color(hex: color) ?? .clear)
+            .foregroundColor(Color(hex: color) ?? .white)
             .font(.system(size: 18))
     }
     
-    convenience init(name: String,
-                     color: String)
-    {
-          self.init()
-          self.name = name
-          self.color = color
-      }
-}
+    convenience init(name: String, color: String) {
+        self.init()
+        self.name = name
+        self.color = color
+    }
+    
+    // MARK: - Codable Conformance
 
+    enum CodingKeys: String, CodingKey {
+        case name
+        case color
+    }
+
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.color = try container.decode(String.self, forKey: .color)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(color, forKey: .color)
+    }
+}
 
 // HERE TODO: move to Utilities Color+Extension
 extension Color {

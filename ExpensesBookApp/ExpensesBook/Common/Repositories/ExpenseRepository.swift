@@ -15,7 +15,6 @@ protocol ExpenseRepositoryProtocol {
 }
 
 class ExpenseRepository: ExpenseRepositoryProtocol {
-    
     private let realmDataManager: RealmDataManager
     
     init(realmDataManager: RealmDataManager = RealmDataManager()) {
@@ -24,7 +23,19 @@ class ExpenseRepository: ExpenseRepositoryProtocol {
     
     func getAllExpenses() async -> [Expense] {
         do {
-            return try await realmDataManager.loadAllAsync(Expense.self)
+            let expenses = try await realmDataManager.loadAllAsync(Expense.self)
+            
+            // Link categories based on categoryId
+            for expense in expenses {
+                if let categoryId = expense.categoryId {
+                    // Fetch the category by its ID
+                    if let category = try await realmDataManager.loadAsync(Category.self, byPrimaryKey: categoryId) {
+                        expense.category = category
+                    }
+                }
+            }
+            
+            return expenses
         } catch {
             print("Error fetching expenses: \(error.localizedDescription)")
             return []
@@ -33,7 +44,22 @@ class ExpenseRepository: ExpenseRepositoryProtocol {
     
     func saveExpense(_ expense: Expense) async {
         do {
-            try await realmDataManager.saveAsync(expense)
+            // Check if the expense already exists
+            if await realmDataManager.objectExists(Expense.self, byPrimaryKey: expense._id) {
+                // Update the existing expense
+                if let existingExpense = try await realmDataManager.loadAsync(Expense.self, byPrimaryKey: expense._id) {
+                    existingExpense.name = expense.name
+                    existingExpense.amount = expense.amount
+                    existingExpense.date = expense.date
+                    existingExpense.categoryId = expense.categoryId
+                    existingExpense.notes = expense.notes
+                    existingExpense.receiptImage = expense.receiptImage
+                    try await realmDataManager.saveAsync(existingExpense)
+                }
+            } else {
+                // Save the new expense
+                try await realmDataManager.saveAsync(expense)
+            }
         } catch {
             print("Error saving expense: \(error.localizedDescription)")
         }

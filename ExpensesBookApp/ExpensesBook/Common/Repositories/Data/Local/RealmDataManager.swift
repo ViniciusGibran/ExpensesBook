@@ -21,7 +21,7 @@ class RealmDataManager {
     
     // MARK: - Load Items
     
-    func loadAsync<T: Object>(_ type: T.Type, byPrimaryKey key: Any) async throws -> T {
+    func loadAsync<T: Object>(_ type: T.Type, byPrimaryKey key: Any) async throws -> T? {
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 do {
@@ -30,7 +30,7 @@ class RealmDataManager {
                         throw RealmError.objectNotFound(message: "Object of type \(T.self) with key \(key) was not found.")
                     }
                     // Return the frozen object for thread safety
-                    continuation.resume(returning: object.freeze())
+                    continuation.resume(returning: object.freeze()) // HERE TODO: review freeze use
                 } catch {
                     print("Error fetching object: \(error.localizedDescription)")
                     continuation.resume(throwing: RealmError.operationFailed(error: error))
@@ -61,6 +61,8 @@ class RealmDataManager {
         try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 do {
+                    
+                    // object.isFrozen -> thaw
                     let realm = try Realm()
                     try realm.write {
                         realm.add(object)
@@ -105,6 +107,22 @@ class RealmDataManager {
                 } catch {
                     print("Error deleting object: \(error.localizedDescription)")
                     continuation.resume(throwing: RealmError.operationFailed(error: error))
+                }
+            }
+        }
+    }
+    
+    // MARK: - Check Item
+    func objectExists<T: Object>(_ type: T.Type, byPrimaryKey key: ObjectId) async -> Bool {
+        return await withCheckedContinuation { continuation in
+            realmQueue.async {
+                do {
+                    let realm = try Realm()
+                    let objectExists = realm.object(ofType: T.self, forPrimaryKey: key) != nil
+                    continuation.resume(returning: objectExists)
+                } catch {
+                    print("Error checking existence: \(error.localizedDescription)")
+                    continuation.resume(returning: false)
                 }
             }
         }

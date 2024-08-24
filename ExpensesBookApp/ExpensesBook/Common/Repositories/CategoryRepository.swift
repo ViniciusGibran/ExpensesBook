@@ -14,7 +14,6 @@ protocol CategoryRepositoryProtocol {
 }
 
 class CategoryRepository: CategoryRepositoryProtocol {
-    
     private let realmDataManager: RealmDataManager
     
     init(realmDataManager: RealmDataManager = RealmDataManager()) {

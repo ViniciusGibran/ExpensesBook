@@ -13,25 +13,27 @@ class Expense: Object, ObjectKeyIdentifiable {
     @Persisted var name: String = ""
     @Persisted var amount: Double = 0.0
     @Persisted var date: Date = Date()
-    @Persisted var category: Category?
     @Persisted var notes: String? = nil
     @Persisted var receiptImage: Data? = nil
+    @Persisted var categoryId: ObjectId?
     
-    
+    var category: Category?
     
     convenience init(name: String,
                      amount: Double,
                      date: Date,
-                     category: Category?,
                      notes: String?,
-                     receiptImage: Data?)
+                     receiptImage: Data?,
+                     category: Category? = nil,
+                     categoryId: ObjectId? = nil)
     {
         self.init()
         self.name = name
         self.amount = amount
         self.date = date
-        self.category = category
         self.notes = notes
         self.receiptImage = receiptImage
+        self.category = category
+        self.categoryId = categoryId
     }
 }
