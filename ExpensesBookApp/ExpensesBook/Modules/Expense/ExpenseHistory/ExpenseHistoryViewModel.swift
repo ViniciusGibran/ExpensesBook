@@ -18,32 +18,6 @@ class ExpenseHistoryViewModel: ObservableObject {
         self.expenseRepository = expenseRepository
     }
     
-    // TMP Mock categories and expenses
-    
-    lazy private var mockCategories: [Category] = [
-        Category(name: "Food", color: "#FF6347"),
-        Category(name: "Transport", color: "#1E90FF"),
-        Category(name: "Shopping", color: "#32CD32")
-    ]
-    
-    lazy private var mockExpenses: [Expense] = [
-        //Expense(name: "Lunch", amount: 15.0, date: Date(), category: mockCategories[0], ),
-        //Expense(name: "Taxi", amount: 20.0, date: Date(), category: mockCategories[1]),
-        // Expense(name: "Groceries", amount: 50.0, date: Date(), category: mockCategories[0])
-    ]
-    
-    /*
-    func loadExpenses() async {
-        await MainActor.run {
-            let groupedExpensesByMonth = Dictionary(grouping: mockExpenses) { expense -> String in
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMMM yyyy" // here note: create a DateFormatterManager just to easily handle dates
-                return dateFormatter.string(from: expense.date)
-            }
-            self.expensesByMonth = groupedExpensesByMonth
-        }
-    }*/
-    
     func deleteExpense(_ expense: Expense) {
         Task {
             await expenseRepository.deleteExpense(expense)

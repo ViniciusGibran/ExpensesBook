@@ -8,53 +8,27 @@
 import SwiftUI
 
 struct ExpenseHistoryView: View {
-    @EnvironmentObject var navigationState: NavigationState
+    @EnvironmentObject var router: Router
     @StateObject private var viewModel = ExpenseHistoryViewModel()
-
+    
     var body: some View {
         NavigationView {
             ZStack {
                 if viewModel.expensesByMonth.isEmpty {
                     EmptyStateView()
                 } else {
-                    ExpenseListView(viewModel: viewModel)
-                }
-
-                FloatingActionButton {
-                    withAnimation {
-                        navigationState.navigationTrigger.send(.showDetail(nil))
+                    ExpenseListView(viewModel: viewModel) { expense in
+                        router.routeTo(.expenseDetail(expense)) // Navigate to edit view
                     }
                 }
+                FloatingActionButton(action: {
+                    router.routeTo(.expenseDetail(nil)) // Navigate to new expense view
+                }, icon: "plus", color: .blue)
             }
-            .navigationTitle("Expenses")
         }
         .onAppear {
             Task {
                 await viewModel.loadExpenses()
-            }
-        }
-    }
-}
-
-// Subview for the floating action button
-struct FloatingActionButton: View {
-    let action: () -> Void
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                //Spacer()
-                Button(action: action) {
-                    Image(systemName: "plus")
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                        .shadow(color: .gray, radius: 4, x: 0, y: 4)
-                }
-                .padding()
             }
         }
     }
@@ -90,8 +64,8 @@ struct EmptyStateView: View {
 
 // Subview for the expense list
 struct ExpenseListView: View {
-    @EnvironmentObject var navigationState: NavigationState
     @ObservedObject var viewModel: ExpenseHistoryViewModel
+    var onSelectExpense: (Expense) -> Void
     
     var body: some View {
         List {
@@ -100,7 +74,7 @@ struct ExpenseListView: View {
                     ForEach(expenses(for: month), id: \.id) { expense in
                         ExpenseItemView(expense: expense)
                             .onTapGesture {
-                                navigationState.navigationTrigger.send(.showDetail(expense))
+                                onSelectExpense(expense)
                             }
                     }
                 }
@@ -108,12 +82,10 @@ struct ExpenseListView: View {
         }
     }
     
-    // Precompute the sorted keys
     private var sortedMonths: [String] {
         viewModel.expensesByMonth.keys.sorted()
     }
     
-    // Precompute the expenses for a given month
     private func expenses(for month: String) -> [Expense] {
         viewModel.expensesByMonth[month] ?? []
     }
