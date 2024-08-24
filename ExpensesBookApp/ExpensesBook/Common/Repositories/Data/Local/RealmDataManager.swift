@@ -16,24 +16,24 @@ enum RealmError: Error {
 
 class RealmDataManager {
     
+    // Create a dedicated serial queue for all Realm operations
+    private let realmQueue = DispatchQueue(label: "com.expensesbook.realmQueue", qos: .userInitiated)
+    
     // MARK: - Load Items
     
     func loadAsync<T: Object>(_ type: T.Type, byPrimaryKey key: Any) async throws -> T {
         return try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue.global().async {
+            realmQueue.async {
                 do {
                     let realm = try Realm()
                     guard let object = realm.object(ofType: T.self, forPrimaryKey: key) else {
                         throw RealmError.objectNotFound(message: "Object of type \(T.self) with key \(key) was not found.")
                     }
-                    DispatchQueue.main.async {
-                        continuation.resume(returning: object)
-                    }
+                    // Return the frozen object for thread safety
+                    continuation.resume(returning: object.freeze())
                 } catch {
                     print("Error fetching object: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        continuation.resume(throwing: RealmError.operationFailed(error: error))
-                    }
+                    continuation.resume(throwing: RealmError.operationFailed(error: error))
                 }
             }
         }
@@ -41,19 +41,15 @@ class RealmDataManager {
     
     func loadAllAsync<T: Object>(_ type: T.Type) async throws -> [T] {
         return try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue.global().async {
+            realmQueue.async {
                 do {
                     let realm = try Realm()
                     let results = realm.objects(T.self)
-                    let array = Array(results)
-                    DispatchQueue.main.async {
-                        continuation.resume(returning: array)
-                    }
+                    let frozenResults = results.map { $0.freeze() } // Freeze for thread safety
+                    continuation.resume(returning: Array(frozenResults))
                 } catch {
                     print("Error fetching objects: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        continuation.resume(throwing: RealmError.operationFailed(error: error))
-                    }
+                    continuation.resume(throwing: RealmError.operationFailed(error: error))
                 }
             }
         }
@@ -63,20 +59,16 @@ class RealmDataManager {
     
     func saveAsync<T: Object>(_ object: T) async throws {
         try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue.global().async {
+            realmQueue.async {
                 do {
                     let realm = try Realm()
                     try realm.write {
                         realm.add(object)
                     }
-                    DispatchQueue.main.async {
-                        continuation.resume()
-                    }
+                    continuation.resume()
                 } catch {
                     print("Error saving object: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        continuation.resume(throwing: RealmError.operationFailed(error: error))
-                    }
+                    continuation.resume(throwing: RealmError.operationFailed(error: error))
                 }
             }
         }
@@ -84,43 +76,35 @@ class RealmDataManager {
     
     func saveAllAsync<T: Object>(_ objects: [T]) async throws {
         try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue.global().async {
+            realmQueue.async {
                 do {
                     let realm = try Realm()
                     try realm.write {
                         realm.add(objects)
                     }
-                    DispatchQueue.main.async {
-                        continuation.resume()
-                    }
+                    continuation.resume()
                 } catch {
                     print("Error saving objects: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        continuation.resume(throwing: RealmError.operationFailed(error: error))
-                    }
+                    continuation.resume(throwing: RealmError.operationFailed(error: error))
                 }
             }
         }
     }
     
-    // MARK: - Delte Item
+    // MARK: - Delete Item
     
     func deleteAsync<T: Object>(_ object: T) async throws {
         try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue.global().async {
+            realmQueue.async {
                 do {
                     let realm = try Realm()
                     try realm.write {
                         realm.delete(object)
                     }
-                    DispatchQueue.main.async {
-                        continuation.resume()
-                    }
+                    continuation.resume()
                 } catch {
                     print("Error deleting object: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        continuation.resume(throwing: RealmError.operationFailed(error: error))
-                    }
+                    continuation.resume(throwing: RealmError.operationFailed(error: error))
                 }
             }
         }

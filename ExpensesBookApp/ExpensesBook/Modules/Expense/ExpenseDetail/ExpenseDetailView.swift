@@ -8,72 +8,99 @@
 import SwiftUI
 
 struct ExpenseDetailView: View {
-    @EnvironmentObject var navigationState: NavigationState
-    @StateObject var viewModel = ExpenseDetailViewModel() // Attach the ViewModel
+    @StateObject var viewModel: ExpenseDetailViewModel
+    @EnvironmentObject var router: Router
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
-            // Receipt Image Preview
+            // Receipt Preview
             if let image = viewModel.receiptImage {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
                     .cornerRadius(10)
-                    .padding(.bottom)
+                    .padding()
+            } else {
+                VStack(spacing: 8) {
+                    Image(systemName: "camera")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70, height: 70)
+                        .foregroundColor(.gray)
+                    
+                    Button(action: {
+                        router.routeTo(.captureExpense)
+                    }) {
+                        Text("Add Receipt")
+                            .font(.subheadline)
+                            .foregroundColor(.blue)
+                    }
+                }
+                .padding(.top, 16)
             }
-
-            // Form Fields
+            
+            // Expense Form Fields
             Form {
                 Section(header: Text("Expense Details")) {
                     TextField("Expense Name", text: $viewModel.expenseName)
                     TextField("Amount", value: $viewModel.amount, format: .currency(code: Locale.current.identifier))
                     DatePicker("Date", selection: $viewModel.date, displayedComponents: .date)
-                    // Category Picker (to be implemented)
+                    
+                    Button(action: {
+                        router.routeTo(.categoryList)
+                    }) {
+                        HStack {
+                            Text("Category")
+                                .foregroundColor(.black)
+                            Spacer()
+                            if let category = viewModel.selectedCategory {
+                                category.coloredCircle
+                                Text(category.name)
+                            } else {
+                                Text("Select Category")
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
                 }
-
+                
                 Section(header: Text("Notes")) {
                     TextEditor(text: $viewModel.notes)
                         .frame(height: 100)
                 }
-
-                // Capture Receipt Button
-                Button(action: {
-                    navigationState.navigationTrigger.send(.startCapture)
-                }) {
-                    HStack {
-                        Image(systemName: "camera")
-                        Text("Capture Receipt")
-                    }
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                .padding(.vertical)
             }
-            
+
             // Save Button
-            Button("Save") {
+            Button(action: {
                 Task {
                     do {
                         try await viewModel.saveExpense()
-                        // Navigate back to the history view after saving
-                        navigationState.navigationTrigger.send(.backToHistory)
+                        router.popToPrevious()
                     } catch {
-                        // Handle save error (e.g., show an alert)
+                        print("Failed to save expense: \(error)")
                     }
                 }
+            }) {
+                Text("Save")
+                    .font(.headline)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(viewModel.isSaveButtonEnabled ? Color.green : Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
             }
-            .font(.headline)
+            .disabled(!viewModel.isSaveButtonEnabled)
             .padding()
-            .frame(maxWidth: .infinity)
-            .background(Color.green)
-            .foregroundColor(.white)
-            .cornerRadius(10)
         }
-        .padding()
-        .navigationTitle("Expense Details")
+        .background(Color(UIColor.systemGray6)) // Keeps the background color consistent
+        .onReceive(NotificationCenter.default.publisher(for: .categorySelected)) { notification in
+            if let category = notification.object as? Category {
+                viewModel.selectedCategory = category
+            }
+        }
+        .onAppear {
+            viewModel.prepareForEditing()
+        }
     }
 }
