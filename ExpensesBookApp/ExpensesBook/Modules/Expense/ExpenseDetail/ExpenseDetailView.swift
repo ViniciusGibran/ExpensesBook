@@ -43,23 +43,42 @@ struct ExpenseDetailView: View {
             // Expense Form Fields
             Form {
                 Section(header: Text("Expense Details")) {
-                    TextField("Expense Name", text: $viewModel.expenseName)
-                    TextField("Amount", value: $viewModel.amount, format: .currency(code: Locale.current.identifier))
-                    DatePicker("Date", selection: $viewModel.date, displayedComponents: .date)
+                    // name
+                    HStack {
+                        Text("Name:")
+                            .foregroundColor(.gray)
+                        TextField("Expense Name", text: $viewModel.expenseName)
+                            .multilineTextAlignment(.trailing)
+                    }
                     
+                    // amount
+                    HStack {
+                        Text("Amount:")
+                            .foregroundColor(.gray)
+                        TextField("Amount", value: $viewModel.amount, format: .currency(code: Locale.current.identifier))
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    
+                    // date
+                    DatePicker("Date", selection: $viewModel.date, displayedComponents: .date)
+                        .foregroundColor(.gray)
+
+                    // category
                     Button(action: {
                         router.routeTo(.categoryList)
                     }) {
                         HStack {
-                            Text("Category")
-                                .foregroundColor(.black)
+                            Text("Category:")
+                                .foregroundColor(.gray)
                             Spacer()
                             if let category = viewModel.selectedCategory {
                                 category.coloredCircle
                                 Text(category.name)
+                                    .foregroundColor(.blue)
                             } else {
                                 Text("Select Category")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.blue)
                             }
                         }
                     }
@@ -93,7 +112,6 @@ struct ExpenseDetailView: View {
             .disabled(!viewModel.isSaveButtonEnabled)
             .padding()
         }
-        .background(Color(UIColor.systemGray6)) // Keeps the background color consistent
         .onReceive(NotificationCenter.default.publisher(for: .categorySelected)) { notification in
             if let category = notification.object as? Category {
                 viewModel.selectedCategory = category
