@@ -1,2 +1,14 @@
-#  <#Title#>
-
+[
+    {
+        "name": "Food",
+        "color": "#FF6347"
+    },
+    {
+        "name": "Travel",
+        "color": "#1E90FF"
+    },
+    {
+        "name": "Shopping",
+        "color": "#32CD32"
+    }
+]
