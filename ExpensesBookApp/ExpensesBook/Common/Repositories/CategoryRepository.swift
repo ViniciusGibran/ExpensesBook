@@ -22,7 +22,13 @@ class CategoryRepository: CategoryRepositoryProtocol {
     
     func getAllCategories() async -> [Category] {
         do {
-            return try await realmDataManager.loadAllAsync(Category.self)
+            // Fetch the CategoryDTOs from Realm
+            let categoryDTOs = try await realmDataManager.loadAllAsync(CategoryDTO.self)
+            
+            // Convert DTOs to Struct Models
+            let categories = categoryDTOs.map { Category(from: $0) }
+            
+            return categories
         } catch {
             print("Error fetching categories: \(error.localizedDescription)")
             return []
@@ -31,7 +37,8 @@ class CategoryRepository: CategoryRepositoryProtocol {
     
     func saveCategory(_ category: Category) async {
         do {
-            try await realmDataManager.saveAsync(category)
+            let categoryDTO = CategoryDTO(from: category)
+            try await realmDataManager.saveAsync(categoryDTO)
         } catch {
             print("Error saving category: \(error.localizedDescription)")
         }
@@ -39,7 +46,8 @@ class CategoryRepository: CategoryRepositoryProtocol {
     
     func deleteCategory(_ category: Category) async {
         do {
-            try await realmDataManager.deleteAsync(category)
+            let categoryDTO = CategoryDTO(from: category)
+            try await realmDataManager.deleteAsync(categoryDTO)
         } catch {
             print("Error deleting category: \(error.localizedDescription)")
         }

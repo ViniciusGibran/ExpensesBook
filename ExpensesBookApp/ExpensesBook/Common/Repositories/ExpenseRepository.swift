@@ -9,28 +9,28 @@ import Foundation
 import RealmSwift
 
 protocol ExpenseRepositoryProtocol {
-    func getAllExpenses() async -> [Expense]
-    func saveExpense(_ expense: Expense) async
-    func deleteExpense(_ expense: Expense) async
+    func getAllExpenses() async throws -> [Expense]
+    func saveExpense(_ expense: Expense) async throws
+    func deleteExpense(_ expense: Expense) async throws
 }
 
 class ExpenseRepository: ExpenseRepositoryProtocol {
     private let realmDataManager: RealmDataManager
-    
+
     init(realmDataManager: RealmDataManager = RealmDataManager()) {
         self.realmDataManager = realmDataManager
     }
     
-    func getAllExpenses() async -> [Expense] {
+    func getAllExpenses() async throws -> [Expense] {
         do {
-            let expenses = try await realmDataManager.loadAllAsync(Expense.self)
+            let expenseDTOs = try await realmDataManager.loadAllAsync(ExpenseDTO.self)
+            var expenses: [Expense] = expenseDTOs.map { Expense(from: $0) }
             
-            // Link categories based on categoryId
-            for expense in expenses {
-                if let categoryId = expense.categoryId {
-                    // Fetch the category by its ID
-                    if let category = try await realmDataManager.loadAsync(Category.self, byPrimaryKey: categoryId) {
-                        expense.category = category
+            // Link categories if necessary
+            for (index, dto) in expenseDTOs.enumerated() {
+                if let categoryId = dto.categoryId {
+                    if let categoryDTO = try await realmDataManager.loadAsync(CategoryDTO.self, byPrimaryKey: categoryId) {
+                        expenses[index].category = Category(from: categoryDTO)
                     }
                 }
             }
@@ -38,38 +38,27 @@ class ExpenseRepository: ExpenseRepositoryProtocol {
             return expenses
         } catch {
             print("Error fetching expenses: \(error.localizedDescription)")
-            return []
+            throw error // Propagate the error
         }
     }
     
-    func saveExpense(_ expense: Expense) async {
+    func saveExpense(_ expense: Expense) async throws {
         do {
-            // Check if the expense already exists
-            if await realmDataManager.objectExists(Expense.self, byPrimaryKey: expense._id) {
-                // Update the existing expense
-                if let existingExpense = try await realmDataManager.loadAsync(Expense.self, byPrimaryKey: expense._id) {
-                    existingExpense.name = expense.name
-                    existingExpense.amount = expense.amount
-                    existingExpense.date = expense.date
-                    existingExpense.categoryId = expense.categoryId
-                    existingExpense.notes = expense.notes
-                    existingExpense.receiptImage = expense.receiptImage
-                    try await realmDataManager.saveAsync(existingExpense)
-                }
-            } else {
-                // Save the new expense
-                try await realmDataManager.saveAsync(expense)
-            }
+            let expenseDTO = ExpenseDTO(from: expense)
+            try await realmDataManager.saveAsync(expenseDTO)
         } catch {
             print("Error saving expense: \(error.localizedDescription)")
+            throw error // Propagate the error
         }
     }
     
-    func deleteExpense(_ expense: Expense) async {
+    func deleteExpense(_ expense: Expense) async throws {
         do {
-            try await realmDataManager.deleteAsync(expense)
+            let expenseDTO = ExpenseDTO(from: expense)
+            try await realmDataManager.deleteAsync(expenseDTO)
         } catch {
             print("Error deleting expense: \(error.localizedDescription)")
+            throw error // Propagate the error
         }
     }
 }
