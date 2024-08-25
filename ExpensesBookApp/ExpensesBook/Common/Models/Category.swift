@@ -8,61 +8,57 @@
 import SwiftUI
 import RealmSwift
 
-class Category: Object, ObjectKeyIdentifiable, Codable {
-    @Persisted(primaryKey: true) var _id: ObjectId = ObjectId.generate()
-    @Persisted var name: String = ""
-    @Persisted var color: String = ""
+struct Category: Identifiable, Codable, Hashable {
     
-    let expenses = LinkingObjects(fromType: Expense.self, property: "category")
+    // MARK: Properties
     
+    let id: ObjectId
+    var name: String
+    var color: String
+
     var coloredCircle: Text {
         Text("●")
             .foregroundColor(Color(hex: color) ?? .white)
             .font(.system(size: 18))
     }
     
-    convenience init(name: String, color: String) {
-        self.init()
-        self.name = name
-        self.color = color
-    }
-    
-    // MARK: - Codable Conformance
+    // MARK: - Codable
 
     enum CodingKeys: String, CodingKey {
+        case id
         case name
         case color
     }
 
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.color = try container.decode(String.self, forKey: .color)
+    
+    // MARK: - Inits
+    
+    init(name: String, color: String) {
+        self.id = ObjectId.generate()
+        self.name = name
+        self.color = color
+    }
+    
+    init(from dto: CategoryDTO) {
+        self.id = dto.id
+        self.name = dto.name
+        self.color = dto.color
     }
 
+    /*
+    // Custom Decodable initializer
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(ObjectId.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        color = try container.decode(String.self, forKey: .color)
+    }
+
+    // Encodable method
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(color, forKey: .color)
-    }
-}
-
-// HERE TODO: move to Utilities Color+Extension
-extension Color {
-    init?(hex: String) {
-        let r, g, b: Double
-        var hexColor = hex
-        
-        if hex.hasPrefix("#") { hexColor = String(hex.dropFirst()) }
-        
-        if hexColor.count == 6, let intCode = Int(hexColor, radix: 16) {
-            r = Double((intCode >> 16) & 0xFF) / 255.0
-            g = Double((intCode >> 8) & 0xFF) / 255.0
-            b = Double(intCode & 0xFF) / 255.0
-            self.init(red: r, green: g, blue: b)
-        } else {
-            return nil
-        }
-    }
+    }*/
 }
