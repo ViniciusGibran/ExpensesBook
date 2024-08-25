@@ -14,9 +14,7 @@ struct ExpenseHistoryView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                if viewModel.expensesByMonth.isEmpty {
-                    EmptyStateView()
-                } else {
+                StateView(state: viewModel.viewState) {
                     ExpenseListView(viewModel: viewModel) { expense in
                         router.routeTo(.expenseDetail(expense)) // Navigate to edit view
                     }
@@ -25,39 +23,9 @@ struct ExpenseHistoryView: View {
                     router.routeTo(.expenseDetail(nil)) // Navigate to new expense view
                 }, icon: "plus", color: .blue)
             }
-        }
-        .onAppear {
-            Task {
-                await viewModel.loadExpenses()
+            .onAppear {
+                Task { await viewModel.loadExpenses() }
             }
-        }
-    }
-}
-
-// Subview for the empty state
-struct EmptyStateView: View {
-    var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                Image(systemName: "folder.badge.plus")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.gray)
-                    .padding(.bottom, 20)
-                
-                Text("No expenses recorded yet")
-                    .font(.title3)
-                    .foregroundColor(.gray)
-                    .padding(.bottom, 10)
-                
-                Text("Tap the + button to add your first expense")
-                    .font(.body)
-                    .foregroundColor(.gray)
-
-                Spacer() // Pushes content to center vertically
-            }
-            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }

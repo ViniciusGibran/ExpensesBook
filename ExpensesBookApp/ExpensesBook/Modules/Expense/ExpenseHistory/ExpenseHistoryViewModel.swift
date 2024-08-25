@@ -7,9 +7,9 @@
 
 import Foundation
 
-@MainActor
-class ExpenseHistoryViewModel: ObservableObject {
-    
+
+class ExpenseHistoryViewModel: ObservableObject, StateViewModel {
+    @Published var viewState: ViewState = .idle
     @Published var expensesByMonth: [String: [Expense]] = [:]
     
     private var expenseRepository: ExpenseRepositoryProtocol
@@ -18,41 +18,48 @@ class ExpenseHistoryViewModel: ObservableObject {
         self.expenseRepository = expenseRepository
     }
     
-    func deleteExpense(_ expense: Expense) {
-        Task {
-            await expenseRepository.deleteExpense(expense)
-            // Update the grouped expenses after deletion
-            await MainActor.run {
-                // Identify the month group
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMMM yyyy"
-                let month = dateFormatter.string(from: expense.date)
-                
-                // Safely remove the expense from the group
-                if let index = expensesByMonth[month]?.firstIndex(of: expense) {
-                    expensesByMonth[month]?.remove(at: index)
-                    
-                    // If the month group is now empty, remove the month
-                    if expensesByMonth[month]?.isEmpty == true {
-                        expensesByMonth.removeValue(forKey: month)
-                    }
-                }
-            }
-        }
-    }
-    
+    @MainActor
     func loadExpenses() async {
-        let expenses = await Task.detached { () -> [Expense] in
-            return await self.expenseRepository.getAllExpenses()
-        }.value
+        setState(.loading)
         
-        await MainActor.run {
+        do {
+            let expenses = try await self.expenseRepository.getAllExpenses()
             let groupedExpensesByMonth = Dictionary(grouping: expenses) { expense -> String in
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMMM yyyy"
                 return dateFormatter.string(from: expense.date)
             }
+            
             self.expensesByMonth = groupedExpensesByMonth
+            
+            if expenses.isEmpty { setState(.empty) }
+            else { setState(.success) }
+            
+        } catch {
+            setState(.error(error))
+        }
+    }
+    
+    @MainActor
+    func deleteExpense(_ expense: Expense) async {
+        do {
+            try await expenseRepository.deleteExpense(expense)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMM yyyy"
+            let month = dateFormatter.string(from: expense.date)
+            
+            if let index = expensesByMonth[month]?.firstIndex(of: expense) {
+                expensesByMonth[month]?.remove(at: index)
+                
+                if expensesByMonth[month]?.isEmpty == true {
+                    expensesByMonth.removeValue(forKey: month)
+                }
+            }
+            
+            setState(.success)
+        } catch {
+            setState(.error(error))
         }
     }
 }
