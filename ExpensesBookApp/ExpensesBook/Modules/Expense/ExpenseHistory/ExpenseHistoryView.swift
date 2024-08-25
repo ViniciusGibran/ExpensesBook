@@ -16,11 +16,11 @@ struct ExpenseHistoryView: View {
             ZStack {
                 StateView(state: viewModel.viewState) {
                     ExpenseListView(viewModel: viewModel) { expense in
-                        router.routeTo(.expenseDetail(expense)) // Navigate to edit view
+                        router.routeTo(.expenseDetail(expense))
                     }
                 }
                 FloatingActionButton(action: {
-                    router.routeTo(.expenseDetail(nil)) // Navigate to new expense view
+                    router.routeTo(.expenseDetail(nil))
                 }, icon: "plus", color: .blue)
             }
             .onAppear {

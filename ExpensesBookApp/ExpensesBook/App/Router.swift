@@ -12,7 +12,6 @@ class Router: ObservableObject {
     enum Destination: Hashable {
         case expenseDetail(_ expense: Expense?)
         case categoryList
-        case captureExpense
     }
     
     @Published var navPath = NavigationPath()

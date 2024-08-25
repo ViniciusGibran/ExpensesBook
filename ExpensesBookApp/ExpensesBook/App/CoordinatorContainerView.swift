@@ -28,11 +28,6 @@ struct CoordinatorContainerView: View {
                             .navigationTitle("Categories")
                             .navigationBarTitleDisplayMode(.large)
                             .background(Color(.systemGray6))
-                        
-                    case .captureExpense:
-                        CaptureExpenseView()
-                            .navigationTitle("Capture Receipt")
-                            .navigationBarBackButtonHidden()
                     }
                 }
         }

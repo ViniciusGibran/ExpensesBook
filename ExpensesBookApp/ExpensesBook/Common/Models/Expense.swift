@@ -17,15 +17,13 @@ struct Expense: Identifiable, Hashable {
     var amount: Double
     var date: Date
     var notes: String?
-    var receiptImage: Data?
+    var receiptImageData: Data?
     var categoryId: ObjectId?
     var category: Category?
 
-    var receiptImageView: Image? {
-        guard let receiptImage = receiptImage, let uiImage = UIImage(data: receiptImage) else {
-            return nil
-        }
-        return Image(uiImage: uiImage)
+    var receiptUIImage: UIImage? {
+        get { UIImage.fromData(receiptImageData) }
+        set { receiptImageData = newValue?.pngData() }
     }
     
     // MARK: - Inits
@@ -34,7 +32,7 @@ struct Expense: Identifiable, Hashable {
          amount: Double,
          date: Date,
          notes: String?,
-         receiptImage: Data?,
+         receiptImageData: Data?,
          category: Category?)
     {
         self.id = ObjectId.generate()
@@ -42,7 +40,7 @@ struct Expense: Identifiable, Hashable {
         self.amount = amount
         self.date = date
         self.notes = notes
-        self.receiptImage = receiptImage
+        self.receiptImageData = receiptImageData
         self.category = category
         self.categoryId = category?.id
     }
@@ -53,7 +51,7 @@ struct Expense: Identifiable, Hashable {
         self.amount = dto.amount
         self.date = dto.date
         self.notes = dto.notes
-        self.receiptImage = dto.receiptImageData
+        self.receiptImageData = dto.receiptImageData
         self.categoryId = dto.categoryId
     }
 }
@@ -67,7 +65,7 @@ extension Expense {
              amount: 0.0,
              date: Date(),
              notes: nil,
-             receiptImage: nil,
+             receiptImageData: nil,
              category: nil
          )
      }

@@ -5,12 +5,11 @@
 //  Created by Vinicius Gibran on 21/08/2024.
 //
 
-import SwiftUI
 import VisionKit
+import SwiftUI
 
 struct DocumentCameraView: UIViewControllerRepresentable {
-    @Binding var scannedImage: UIImage?
-    @Environment(\.presentationMode) var presentationMode
+    var onComplete: (UIImage) -> Void
     
     func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
         let viewController = VNDocumentCameraViewController()
@@ -19,32 +18,33 @@ struct DocumentCameraView: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: VNDocumentCameraViewController, context: Context) {}
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-    
+
     class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
         let parent: DocumentCameraView
         
         init(_ parent: DocumentCameraView) {
             self.parent = parent
         }
-        
+
         func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
             if scan.pageCount > 0 {
-                parent.scannedImage = scan.imageOfPage(at: 0)
+                let scannedUIImage = scan.imageOfPage(at: scan.pageCount - 1)
+                parent.onComplete(scannedUIImage)
             }
-            parent.presentationMode.wrappedValue.dismiss()
+            controller.dismiss(animated: true)
         }
-        
+
         func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
-            parent.presentationMode.wrappedValue.dismiss()
+            controller.dismiss(animated: true)
         }
-        
+
         func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFailWithError error: Error) {
-            // HERE TODO: handle error (show an alert)
-            parent.presentationMode.wrappedValue.dismiss()
+            print("Document scanner error: \(error.localizedDescription)")
+            controller.dismiss(animated: true)
         }
     }
 }

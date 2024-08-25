@@ -28,7 +28,7 @@ class ExpenseDTO: Object {
         self.amount = expense.amount
         self.date = expense.date
         self.notes = expense.notes
-        self.receiptImageData = expense.receiptImage
+        self.receiptImageData = expense.receiptImageData
         self.categoryId = expense.categoryId
     }
 }

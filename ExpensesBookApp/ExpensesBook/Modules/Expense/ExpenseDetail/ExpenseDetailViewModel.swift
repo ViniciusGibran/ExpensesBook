@@ -8,13 +8,11 @@
 import SwiftUI
 import Combine
 
-@MainActor
 class ExpenseDetailViewModel: ObservableObject {
     @Published var expense: Expense
+    @Published var amountInput: String = ""
     
     private var expenseRepository: ExpenseRepositoryProtocol
-
-    //var isEditing: Bool { expense.id != ObjectId.generate() }
     
     var isSaveButtonEnabled: Bool {
         !expense.name.isEmpty && expense.amount > .zero
@@ -23,26 +21,25 @@ class ExpenseDetailViewModel: ObservableObject {
     init(expenseRepository: ExpenseRepositoryProtocol = ExpenseRepository(), expense: Expense? = nil) {
         self.expenseRepository = expenseRepository
         self.expense = expense ?? Expense.newExpense()
+        self.amountInput = self.expense.amount > .zero ? "\(self.expense.amount)" : ""
     }
     
-    // Save the expense
+    // Convert amountInput to Double before saving
+    @MainActor
     func saveExpense() async throws {
-        guard isSaveButtonEnabled else { throw ExpenseError.invalidData }
+        try await expenseRepository.saveExpense(expense)
+    }
+    
+    
+    func formatAndUpdateAmountInput(_ newValue: String) {
+        var formattedInput = newValue
         
-        do {
-            try await expenseRepository.saveExpense(expense)
-        } catch {
-            print("Failed to save expense: \(error.localizedDescription)")
-            // Handle the error, e.g., show an alert to the user
+        if formattedInput.count > 2 {
+            formattedInput = formattedInput.replacingOccurrences(of: ".", with: "")
+            formattedInput.insert(".", at: formattedInput.index(formattedInput.endIndex, offsetBy: -2))
         }
-    }
-    
-    func captureReceipt() {
-        // Logic to start capturing the receipt
-    }
-    
-    // HERE TODO: add a new ViewState enum to handle view errors
-    enum ExpenseError: Error {
-        case invalidData
+        
+        amountInput = formattedInput
+        expense.amount = Double(formattedInput) ?? 0.0
     }
 }

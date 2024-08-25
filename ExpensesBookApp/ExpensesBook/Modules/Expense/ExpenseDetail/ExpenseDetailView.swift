@@ -8,37 +8,13 @@
 import SwiftUI
 
 struct ExpenseDetailView: View {
-    @StateObject var viewModel: ExpenseDetailViewModel
     @EnvironmentObject var router: Router
-    @Environment(\.presentationMode) var presentationMode
+    @StateObject var viewModel: ExpenseDetailViewModel
 
     var body: some View {
         VStack {
-            // Receipt Preview
-            if let image = viewModel.expense.receiptImageView {
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .cornerRadius(10)
-                    .padding()
-            } else {
-                VStack(spacing: 8) {
-                    Image(systemName: "camera")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 70, height: 70)
-                        .foregroundColor(.gray)
-                    
-                    Button(action: {
-                        router.routeTo(.captureExpense)
-                    }) {
-                        Text("Add Receipt")
-                            .font(.subheadline)
-                            .foregroundColor(.blue)
-                    }
-                }
-                .padding(.top, 16)
-            }
+            // Receipt Preview/Capture
+            CaptureExpenseView(viewModel: CaptureExpenseViewModel(receiptUIImage: viewModel.expense.receiptUIImage))
             
             // Expense Form Fields
             Form {
@@ -55,9 +31,12 @@ struct ExpenseDetailView: View {
                     HStack {
                         Text("Amount:")
                             .foregroundColor(.gray)
-                        TextField("Amount", value: $viewModel.expense.amount, format: .currency(code: Locale.current.identifier))
-                            .keyboardType(.decimalPad)
+                        TextField("Amount", text: $viewModel.amountInput)
+                            .keyboardType(.numberPad)
                             .multilineTextAlignment(.trailing)
+                            .onChange(of: viewModel.amountInput) { newValue in
+                                viewModel.formatAndUpdateAmountInput(newValue)
+                            }
                     }
                     
                     // Date
@@ -119,6 +98,11 @@ struct ExpenseDetailView: View {
             if let category = notification.object as? Category {
                 viewModel.expense.category = category
                 viewModel.expense.categoryId = category.id
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .receiptCaptured)) { notification in
+            if let receiptUIImage = notification.object as? UIImage {
+                viewModel.expense.receiptUIImage = receiptUIImage
             }
         }
     }
