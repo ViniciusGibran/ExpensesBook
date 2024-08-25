@@ -15,8 +15,8 @@ struct ExpenseDetailView: View {
     var body: some View {
         VStack {
             // Receipt Preview
-            if let image = viewModel.receiptImage {
-                Image(uiImage: image)
+            if let image = viewModel.expense.receiptImageView {
+                image
                     .resizable()
                     .scaledToFit()
                     .cornerRadius(10)
@@ -43,28 +43,28 @@ struct ExpenseDetailView: View {
             // Expense Form Fields
             Form {
                 Section(header: Text("Expense Details")) {
-                    // name
+                    // Name
                     HStack {
                         Text("Name:")
                             .foregroundColor(.gray)
-                        TextField("Expense Name", text: $viewModel.expenseName)
+                        TextField("Expense Name", text: $viewModel.expense.name)
                             .multilineTextAlignment(.trailing)
                     }
                     
-                    // amount
+                    // Amount
                     HStack {
                         Text("Amount:")
                             .foregroundColor(.gray)
-                        TextField("Amount", value: $viewModel.amount, format: .currency(code: Locale.current.identifier))
+                        TextField("Amount", value: $viewModel.expense.amount, format: .currency(code: Locale.current.identifier))
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
                     }
                     
-                    // date
-                    DatePicker("Date", selection: $viewModel.date, displayedComponents: .date)
+                    // Date
+                    DatePicker("Date", selection: $viewModel.expense.date, displayedComponents: .date)
                         .foregroundColor(.gray)
 
-                    // category
+                    // Category
                     Button(action: {
                         router.routeTo(.categoryList)
                     }) {
@@ -72,7 +72,7 @@ struct ExpenseDetailView: View {
                             Text("Category:")
                                 .foregroundColor(.gray)
                             Spacer()
-                            if let category = viewModel.selectedCategory {
+                            if let category = viewModel.expense.category {
                                 category.coloredCircle
                                 Text(category.name)
                                     .foregroundColor(.blue)
@@ -85,8 +85,11 @@ struct ExpenseDetailView: View {
                 }
                 
                 Section(header: Text("Notes")) {
-                    TextEditor(text: $viewModel.notes)
-                        .frame(height: 100)
+                    TextEditor(text: Binding(
+                        get: { viewModel.expense.notes ?? "" },
+                        set: { viewModel.expense.notes = $0.isEmpty ? nil : $0 }
+                    ))
+                    .frame(height: 100)
                 }
             }
 
@@ -114,11 +117,9 @@ struct ExpenseDetailView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: .categorySelected)) { notification in
             if let category = notification.object as? Category {
-                viewModel.selectedCategory = category
+                viewModel.expense.category = category
+                viewModel.expense.categoryId = category.id
             }
-        }
-        .onAppear {
-            viewModel.prepareForEditing()
         }
     }
 }
