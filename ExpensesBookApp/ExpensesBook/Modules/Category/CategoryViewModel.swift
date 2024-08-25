@@ -10,6 +10,7 @@ import Foundation
 @MainActor
 class CategoryViewModel: ObservableObject {
     
+    // HERE TODO: make it only one property: category similar to ExpenseDetailViewModel
     @Published var categories: [Category] = []
     @Published var selectedCategory: Category?
     @Published var newCategoryName: String = ""
@@ -34,9 +35,7 @@ class CategoryViewModel: ObservableObject {
             return
         }
         
-        let category = Category()
-        category.name = newCategoryName
-        category.color = newCategoryColor
+        let category = Category(name: newCategoryName, color: newCategoryColor)
         
         Task {
             await categoryRepository.saveCategory(category)

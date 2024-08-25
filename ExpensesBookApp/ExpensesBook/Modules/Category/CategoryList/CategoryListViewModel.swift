@@ -13,35 +13,38 @@ import RealmSwift
 class CategoryListViewModel: ObservableObject {
     @Published var categories: [Category] = []
     
-    private var realmDataManager: RealmDataManager
+    private var categoryRepository: CategoryRepositoryProtocol
 
-    init(realmDataManager: RealmDataManager = RealmDataManager()) {
-        self.realmDataManager = realmDataManager
+    // Dependency Injection: Passing the repository for easier testing
+    init(categoryRepository: CategoryRepositoryProtocol = CategoryRepository()) {
+        self.categoryRepository = categoryRepository
         loadDefaultCategoriesIfNeeded()
     }
     
+    // Notify when a category is selected
     func selectCategory(_ category: Category) {
         NotificationCenter.default.post(name: .categorySelected, object: category)
     }
 
+    // Load all categories
     func loadCategories() {
         Task {
             do {
-                let loadedCategories = try await realmDataManager.loadAllAsync(Category.self)
-                categories = loadedCategories
+                categories = try await categoryRepository.getAllCategories()
             } catch {
                 print("Error loading categories: \(error.localizedDescription)")
             }
         }
     }
     
+    // Delete a category
     func deleteCategory(at offsets: IndexSet) {
         guard let index = offsets.first else { return }
         let categoryToDelete = categories[index]
         
         Task {
             do {
-                try await realmDataManager.deleteAsync(categoryToDelete)
+                try await categoryRepository.deleteCategory(categoryToDelete)
                 categories.remove(atOffsets: offsets)
             } catch {
                 print("Error deleting category: \(error.localizedDescription)")
@@ -53,7 +56,7 @@ class CategoryListViewModel: ObservableObject {
     private func loadDefaultCategoriesIfNeeded() {
         Task {
             do {
-                let existingCategories = try await realmDataManager.loadAllAsync(Category.self)
+                let existingCategories = try await categoryRepository.getAllCategories()
                 if existingCategories.isEmpty {
                     try await loadDefaultCategories()
                 }
@@ -63,6 +66,7 @@ class CategoryListViewModel: ObservableObject {
         }
     }
 
+    // Load the default categories from a JSON file
     private func loadDefaultCategories() async throws {
         guard let url = Bundle.main.url(forResource: "default_categories", withExtension: "json"),
               let data = try? Data(contentsOf: url) else { return }
@@ -71,7 +75,7 @@ class CategoryListViewModel: ObservableObject {
         let defaultCategories = try decoder.decode([Category].self, from: data)
 
         for category in defaultCategories {
-            try await realmDataManager.saveAsync(category)
+            try await categoryRepository.saveCategory(category)
         }
 
         // Reload categories after adding defaults

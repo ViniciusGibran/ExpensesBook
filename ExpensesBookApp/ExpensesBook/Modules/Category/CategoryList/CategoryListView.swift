@@ -23,7 +23,7 @@ struct CategoryListView: View {
                     EmptyStateView()
                 } else {
                     List {
-                        ForEach(viewModel.categories, id: \._id) { category in
+                        ForEach(viewModel.categories, id: \.id) { category in
                             HStack {
                                 category.coloredCircle
                                 Text(category.name)
@@ -57,7 +57,8 @@ struct CategoryListView: View {
             }
             .navigationTitle("Categories")
             .sheet(isPresented: $isPresentingCategoryManager) {
-                CategoryManagerView(category: $selectedCategory) {
+                CategoryManagerView(category: $selectedCategory) { updatedCategory in
+                    // viewModel.saveCategory(updatedCategory) HERE TODO: 
                     viewModel.loadCategories()
                 }
             }
@@ -74,8 +75,8 @@ struct CategoryManagerView: View {
     @State private var name: String = ""
     @State private var color: String = "#000000"
     
-    var onSave: () -> Void
-    
+    var onSave: (Category) -> Void
+
     var body: some View {
         NavigationView {
             Form {
@@ -98,7 +99,6 @@ struct CategoryManagerView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         saveCategory()
-                        onSave()
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
@@ -113,23 +113,18 @@ struct CategoryManagerView: View {
     }
     
     private func saveCategory() {
-        if let category = category {
+        let updatedCategory: Category
+        if var category = category {
+            // Update existing category
             category.name = name
             category.color = color
+            updatedCategory = category
         } else {
-            let newCategory = Category(name: name, color: color)
-            // Save the new category using your RealmDataManager
-            // Example: realmDataManager.saveAsync(newCategory)
+            // Create a new category
+            updatedCategory = Category(name: name, color: color)
         }
-    }
-}
 
-extension Color {
-    func toHexString() -> String {
-        let components = self.cgColor?.components ?? [0, 0, 0, 1]
-        let r = components[0]
-        let g = components[1]
-        let b = components[2]
-        return String(format: "#%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
+        // Call the onSave closure with the updated or new category
+        onSave(updatedCategory)
     }
 }
