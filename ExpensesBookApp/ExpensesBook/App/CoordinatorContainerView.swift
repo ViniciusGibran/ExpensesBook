@@ -36,6 +36,6 @@ struct CoordinatorContainerView: View {
                     }
                 }
         }
-        .environmentObject(router) // Pass the router as an environment object
+        .environmentObject(router)
     }
 }

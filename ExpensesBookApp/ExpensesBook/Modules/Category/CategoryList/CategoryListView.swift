@@ -20,7 +20,7 @@ struct CategoryListView: View {
             ZStack {
                 // Background list or empty state
                 if viewModel.categories.isEmpty {
-                    EmptyStateView()
+                    EmptyView()
                 } else {
                     List {
                         ForEach(viewModel.categories, id: \.id) { category in
