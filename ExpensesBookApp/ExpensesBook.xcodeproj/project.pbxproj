@@ -307,8 +307,8 @@
 		9131DCBF2C7383510056732F /* ExpenseHistory */ = {
 			isa = PBXGroup;
 			children = (
-				9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */,
 				9131DCE42C75312B0056732F /* ExpenseHistoryView.swift */,
+				9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */,
 			);
 			path = ExpenseHistory;
 			sourceTree = "<group>";
