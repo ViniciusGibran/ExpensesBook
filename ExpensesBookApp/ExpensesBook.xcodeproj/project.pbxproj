@@ -14,6 +14,10 @@
 		91094A2A2C77E95100611BC0 /* default_categories.json in Resources */ = {isa = PBXBuildFile; fileRef = 91094A292C77E95100611BC0 /* default_categories.json */; };
 		91094A2C2C780E7400611BC0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91094A2B2C780E7400611BC0 /* Router.swift */; };
 		91094A2E2C7816EE00611BC0 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91094A2D2C7816EE00611BC0 /* Notification+Extension.swift */; };
+		9121A3822C796B39009E815B /* ExpenseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9121A3812C796B39009E815B /* ExpenseDTO.swift */; };
+		9121A3862C796F3F009E815B /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9121A3852C796F3F009E815B /* CategoryDTO.swift */; };
+		9121A38A2C79700E009E815B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9121A3892C79700E009E815B /* Color+Extension.swift */; };
+		9121A38E2C7B5E89009E815B /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9121A38D2C7B5E89009E815B /* StateView.swift */; };
 		9131DC882C7369430056732F /* ExpensesBookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DC872C7369430056732F /* ExpensesBookApp.swift */; };
 		9131DC8C2C7369460056732F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9131DC8B2C7369460056732F /* Assets.xcassets */; };
 		9131DC8F2C7369460056732F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9131DC8E2C7369460056732F /* Preview Assets.xcassets */; };
@@ -91,6 +95,10 @@
 		91094A292C77E95100611BC0 /* default_categories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = default_categories.json; sourceTree = "<group>"; };
 		91094A2B2C780E7400611BC0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		91094A2D2C7816EE00611BC0 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
+		9121A3812C796B39009E815B /* ExpenseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDTO.swift; sourceTree = "<group>"; };
+		9121A3852C796F3F009E815B /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
+		9121A3892C79700E009E815B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		9121A38D2C7B5E89009E815B /* StateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateView.swift; sourceTree = "<group>"; };
 		9131DC842C7369430056732F /* ExpensesBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9131DC872C7369430056732F /* ExpensesBookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesBookApp.swift; sourceTree = "<group>"; };
 		9131DC8B2C7369460056732F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -172,8 +180,18 @@
 		9121A3802C7967D3009E815B /* ModelDTO */ = {
 			isa = PBXGroup;
 			children = (
+				9121A3812C796B39009E815B /* ExpenseDTO.swift */,
+				9121A3852C796F3F009E815B /* CategoryDTO.swift */,
 			);
 			path = ModelDTO;
+			sourceTree = "<group>";
+		};
+		9121A38C2C7B5E70009E815B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9121A38D2C7B5E89009E815B /* StateView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9131DC7B2C7369430056732F = {
@@ -249,6 +267,7 @@
 		9131DCBA2C7382C50056732F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9121A38C2C7B5E70009E815B /* Views */,
 				9131DCC92C73B8E30056732F /* Models */,
 				9131DCBE2C73831C0056732F /* Repositories */,
 				9131DCBC2C7382ED0056732F /* Utilities */,
@@ -270,6 +289,7 @@
 			children = (
 				91094A262C77E7A200611BC0 /* Components */,
 				91094A2D2C7816EE00611BC0 /* Notification+Extension.swift */,
+				9121A3892C79700E009E815B /* Color+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -545,7 +565,9 @@
 				91094A212C76537A00611BC0 /* ExpenseDetailViewModel.swift in Sources */,
 				9141CFFE2C75FD4800122630 /* CaptureExpenseView.swift in Sources */,
 				91094A2C2C780E7400611BC0 /* Router.swift in Sources */,
+				9121A38A2C79700E009E815B /* Color+Extension.swift in Sources */,
 				9131DCCD2C73B91B0056732F /* Category.swift in Sources */,
+				9121A3862C796F3F009E815B /* CategoryDTO.swift in Sources */,
 				9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */,
 				91094A2E2C7816EE00611BC0 /* Notification+Extension.swift in Sources */,
 				9131DC882C7369430056732F /* ExpensesBookApp.swift in Sources */,
@@ -554,8 +576,10 @@
 				91A096802C76399900E082DD /* ExpenseDetailView.swift in Sources */,
 				91094A232C77E24A00611BC0 /* CategoryListView.swift in Sources */,
 				9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */,
+				9121A3822C796B39009E815B /* ExpenseDTO.swift in Sources */,
 				9131DCE52C75312B0056732F /* ExpenseHistoryView.swift in Sources */,
 				91094A252C77E41700611BC0 /* CategoryListViewModel.swift in Sources */,
+				9121A38E2C7B5E89009E815B /* StateView.swift in Sources */,
 				9131DCDB2C73EA210056732F /* RealmDataManager.swift in Sources */,
 				9141CFFA2C75F72300122630 /* CoordinatorContainerView.swift in Sources */,
 				9141CFFC2C75FD0900122630 /* DocumentCameraView.swift in Sources */,
