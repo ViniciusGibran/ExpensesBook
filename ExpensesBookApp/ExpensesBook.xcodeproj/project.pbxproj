@@ -106,7 +106,7 @@
 		9121A3892C79700E009E815B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		9121A38D2C7B5E89009E815B /* StateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateView.swift; sourceTree = "<group>"; };
 		9121A38F2C7B858D009E815B /* CaptureExpenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureExpenseViewModel.swift; sourceTree = "<group>"; };
-		9131DC842C7369430056732F /* ExpensesBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9131DC842C7369430056732F /* Expenses Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expenses Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9131DC872C7369430056732F /* ExpensesBookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesBookApp.swift; sourceTree = "<group>"; };
 		9131DC8B2C7369460056732F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9131DC8E2C7369460056732F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 		9131DC852C7369430056732F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9131DC842C7369430056732F /* ExpensesBook.app */,
+				9131DC842C7369430056732F /* Expenses Book.app */,
 				9131DC942C7369460056732F /* ExpensesBookTests.xctest */,
 				9131DC9E2C7369460056732F /* ExpensesBookUITests.xctest */,
 			);
@@ -480,7 +480,7 @@
 				9131DCB72C736EBF0056732F /* RealmSwift */,
 			);
 			productName = ExpensesBook;
-			productReference = 9131DC842C7369430056732F /* ExpensesBook.app */;
+			productReference = 9131DC842C7369430056732F /* Expenses Book.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9131DC932C7369460056732F /* ExpensesBookTests */ = {
@@ -813,7 +813,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Expenses Book";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -845,7 +845,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBook;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Expenses Book";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

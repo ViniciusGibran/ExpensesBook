@@ -7,11 +7,12 @@
 
 import Foundation
 
-
 class ExpenseHistoryViewModel: ObservableObject, StateViewModel {
     @Published var viewState: ViewState = .idle
-    @Published var expensesByMonth: [String: [Expense]] = [:]
+    @Published var groupedExpensesByMonth: [String: [Expense]] = [:]
+    @Published var searchText: String = ""
     
+    private var allExpenses: [Expense] = []
     private var expenseRepository: ExpenseRepositoryProtocol
     
     init(expenseRepository: ExpenseRepositoryProtocol = ExpenseRepository()) {
@@ -23,41 +24,32 @@ class ExpenseHistoryViewModel: ObservableObject, StateViewModel {
         setState(.loading)
         
         do {
-            let expenses = try await self.expenseRepository.getAllExpenses()
-            let groupedExpensesByMonth = Dictionary(grouping: expenses) { expense -> String in
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMMM yyyy"
-                return dateFormatter.string(from: expense.date)
-            }
+            allExpenses = try await expenseRepository.getAllExpenses()
+            filterExpenses()
             
-            self.expensesByMonth = groupedExpensesByMonth
-            setState(expenses.isEmpty ? .empty : .success)
-            
+            setState(allExpenses.isEmpty ? .empty : .success)
         } catch {
             setState(.error(error))
         }
     }
     
     @MainActor
-    func deleteExpense(_ expense: Expense) async {
-        do {
+    func deleteExpense(_ expense: Expense) {
+        Task {
             try await expenseRepository.deleteExpense(expense)
-            
+            await loadExpenses()
+        }
+    }
+    
+    func filterExpenses() {
+        let filteredExpenses = searchText.isEmpty ? allExpenses : allExpenses.filter { expense in
+            expense.name.localizedCaseInsensitiveContains(searchText)
+        }
+        
+        groupedExpensesByMonth = Dictionary(grouping: filteredExpenses) { expense -> String in
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMMM yyyy"
-            let month = dateFormatter.string(from: expense.date)
-            
-            if let index = expensesByMonth[month]?.firstIndex(of: expense) {
-                expensesByMonth[month]?.remove(at: index)
-                
-                if expensesByMonth[month]?.isEmpty == true {
-                    expensesByMonth.removeValue(forKey: month)
-                }
-            }
-            
-            setState(.success)
-        } catch {
-            setState(.error(error))
+            return dateFormatter.string(from: expense.date)
         }
     }
 }

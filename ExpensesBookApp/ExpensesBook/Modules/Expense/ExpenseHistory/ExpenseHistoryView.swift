@@ -23,6 +23,10 @@ struct ExpenseHistoryView: View {
                     router.routeTo(.expenseDetail(nil))
                 }, icon: "plus", color: .blue)
             }
+            .searchable(text: $viewModel.searchText)
+            .onChange(of: viewModel.searchText) { _ in
+                viewModel.filterExpenses()
+            }
             .onAppear {
                 Task { await viewModel.loadExpenses() }
             }
@@ -38,9 +42,9 @@ struct ExpenseListView: View {
     
     var body: some View {
         List {
-            ForEach(sortedMonths, id: \.self) { month in
+            ForEach(viewModel.groupedExpensesByMonth.keys.sorted(), id: \.self) { month in
                 Section(header: Text(month)) {
-                    ForEach(expenses(for: month), id: \.id) { expense in
+                    ForEach(viewModel.groupedExpensesByMonth[month] ?? [], id: \.id) { expense in
                         ExpenseItemView(expense: expense)
                             .onTapGesture {
                                 onSelectExpense(expense)
@@ -49,14 +53,6 @@ struct ExpenseListView: View {
                 }
             }
         }
-    }
-    
-    private var sortedMonths: [String] {
-        viewModel.expensesByMonth.keys.sorted()
-    }
-    
-    private func expenses(for month: String) -> [Expense] {
-        viewModel.expensesByMonth[month] ?? []
     }
 }
 
