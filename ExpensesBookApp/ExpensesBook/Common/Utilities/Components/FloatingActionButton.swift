@@ -14,9 +14,9 @@ struct FloatingActionButton: View {
     
     var body: some View {
         VStack {
-            Spacer() // Pushes the button to the bottom
+            Spacer()
             HStack {
-                Spacer() // Pushes the button to the right
+                Spacer()
                 Button(action: action) {
                     Image(systemName: icon)
                         .font(.largeTitle)
@@ -24,7 +24,7 @@ struct FloatingActionButton: View {
                         .padding()
                         .background(color)
                         .clipShape(Circle())
-                        .shadow(color: .gray, radius: 4, x: 0, y: 4) // Gives the button an elevated look
+                        .shadow(color: .gray, radius: 4, x: 0, y: 4)
                 }
                 .padding()
             }

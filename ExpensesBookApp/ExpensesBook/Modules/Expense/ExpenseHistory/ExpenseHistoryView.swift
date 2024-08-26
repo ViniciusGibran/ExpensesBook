@@ -30,7 +30,8 @@ struct ExpenseHistoryView: View {
     }
 }
 
-// Subview for the expense list
+// MARK: - ExpenseListView
+
 struct ExpenseListView: View {
     @ObservedObject var viewModel: ExpenseHistoryViewModel
     var onSelectExpense: (Expense) -> Void
@@ -58,7 +59,8 @@ struct ExpenseListView: View {
         viewModel.expensesByMonth[month] ?? []
     }
 }
-// MARK: - ExpenseItemView - TODO: Move to own file
+
+// MARK: - ExpenseItemView
 
 struct ExpenseItemView: View {
     let expense: Expense
@@ -67,7 +69,7 @@ struct ExpenseItemView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(expenseDateFormatted(expense.date))
-                    .font(.system(size: 14, weight: .bold))
+                    .font(.system(size: 15, weight: .bold))
             }
             .frame(width: 60, alignment: .leading)
             
@@ -86,7 +88,7 @@ struct ExpenseItemView: View {
     
     private func expenseDateFormatted(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/EEE" // "18/Mon" format
+        dateFormatter.dateFormat = "dd/EEE"
         return dateFormatter.string(from: date)
     }
 }

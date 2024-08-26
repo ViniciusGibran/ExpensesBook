@@ -25,8 +25,6 @@ class ExpenseRepository: ExpenseRepositoryProtocol {
         do {
             let expenseDTOs = try await realmDataManager.loadAllAsync(ExpenseDTO.self)
             var expenses: [Expense] = expenseDTOs.map { Expense(from: $0) }
-            
-            // Link categories if necessary
             for (index, dto) in expenseDTOs.enumerated() {
                 if let categoryId = dto.categoryId {
                     if let categoryDTO = try await realmDataManager.loadAsync(CategoryDTO.self, byPrimaryKey: categoryId) {
@@ -38,7 +36,7 @@ class ExpenseRepository: ExpenseRepositoryProtocol {
             return expenses
         } catch {
             print("Error fetching expenses: \(error.localizedDescription)")
-            throw error // Propagate the error
+            throw error
         }
     }
     
@@ -48,7 +46,7 @@ class ExpenseRepository: ExpenseRepositoryProtocol {
             try await realmDataManager.saveAsync(expenseDTO)
         } catch {
             print("Error saving expense: \(error.localizedDescription)")
-            throw error // Propagate the error
+            throw error
         }
     }
     
@@ -58,7 +56,7 @@ class ExpenseRepository: ExpenseRepositoryProtocol {
             try await realmDataManager.deleteAsync(expenseDTO)
         } catch {
             print("Error deleting expense: \(error.localizedDescription)")
-            throw error // Propagate the error
+            throw error
         }
     }
 }

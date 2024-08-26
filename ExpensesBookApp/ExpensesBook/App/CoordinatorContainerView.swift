@@ -27,7 +27,6 @@ struct CoordinatorContainerView: View {
                         CategoryListView(viewModel: CategoryListViewModel())
                             .navigationTitle("Categories")
                             .navigationBarTitleDisplayMode(.large)
-                            .background(Color(.systemGray6))
                     }
                 }
         }

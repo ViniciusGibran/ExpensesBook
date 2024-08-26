@@ -37,11 +37,12 @@
 		9131DCDD2C73EAEE0056732F /* ExpenseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */; };
 		9131DCDF2C73EB340056732F /* ExpenseHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */; };
 		9131DCE12C740DAA0056732F /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE02C740DAA0056732F /* CategoryRepository.swift */; };
-		9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE22C740E390056732F /* CategoryViewModel.swift */; };
+		9131DCE32C740E390056732F /* CategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE22C740E390056732F /* CategoryDetailViewModel.swift */; };
 		9131DCE52C75312B0056732F /* ExpenseHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCE42C75312B0056732F /* ExpenseHistoryView.swift */; };
 		9141CFFA2C75F72300122630 /* CoordinatorContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141CFF92C75F72300122630 /* CoordinatorContainerView.swift */; };
 		9141CFFC2C75FD0900122630 /* DocumentCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141CFFB2C75FD0900122630 /* DocumentCameraView.swift */; };
 		9141CFFE2C75FD4800122630 /* CaptureExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141CFFD2C75FD4800122630 /* CaptureExpenseView.swift */; };
+		9155334B2C7BF9120057DCD1 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9155334A2C7BF9120057DCD1 /* CategoryDetailView.swift */; };
 		91841D3D2C7BD63F00F9EFDF /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91841D3C2C7BD63F00F9EFDF /* UIImage+Extension.swift */; };
 		91841D412C7BDB0500F9EFDF /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91841D402C7BDB0500F9EFDF /* Image+Extension.swift */; };
 		91A0967E2C76099F00E082DD /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCB72C736EBF0056732F /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -121,11 +122,12 @@
 		9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRepository.swift; sourceTree = "<group>"; };
 		9131DCDE2C73EB340056732F /* ExpenseHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHistoryViewModel.swift; sourceTree = "<group>"; };
 		9131DCE02C740DAA0056732F /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
-		9131DCE22C740E390056732F /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		9131DCE22C740E390056732F /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryDetailViewModel.swift; path = ExpensesBook/Modules/Category/CategoryDetailViewModel.swift; sourceTree = SOURCE_ROOT; };
 		9131DCE42C75312B0056732F /* ExpenseHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHistoryView.swift; sourceTree = "<group>"; };
 		9141CFF92C75F72300122630 /* CoordinatorContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorContainerView.swift; sourceTree = "<group>"; };
 		9141CFFB2C75FD0900122630 /* DocumentCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCameraView.swift; sourceTree = "<group>"; };
 		9141CFFD2C75FD4800122630 /* CaptureExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureExpenseView.swift; sourceTree = "<group>"; };
+		9155334A2C7BF9120057DCD1 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		91841D3C2C7BD63F00F9EFDF /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		91841D402C7BDB0500F9EFDF /* Image+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
 		91A0967F2C76399900E082DD /* ExpenseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailView.swift; sourceTree = "<group>"; };
@@ -342,8 +344,6 @@
 			isa = PBXGroup;
 			children = (
 				9131DCC52C7384080056732F /* CategoryList */,
-				9131DCC42C7383FF0056732F /* CategoryDetail */,
-				9131DCE22C740E390056732F /* CategoryViewModel.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -360,6 +360,8 @@
 		9131DCC42C7383FF0056732F /* CategoryDetail */ = {
 			isa = PBXGroup;
 			children = (
+				9155334A2C7BF9120057DCD1 /* CategoryDetailView.swift */,
+				9131DCE22C740E390056732F /* CategoryDetailViewModel.swift */,
 			);
 			path = CategoryDetail;
 			sourceTree = "<group>";
@@ -367,6 +369,7 @@
 		9131DCC52C7384080056732F /* CategoryList */ = {
 			isa = PBXGroup;
 			children = (
+				9131DCC42C7383FF0056732F /* CategoryDetail */,
 				91094A222C77E24A00611BC0 /* CategoryListView.swift */,
 				91094A242C77E41700611BC0 /* CategoryListViewModel.swift */,
 			);
@@ -592,8 +595,9 @@
 				9131DCDD2C73EAEE0056732F /* ExpenseRepository.swift in Sources */,
 				91094A282C77E87E00611BC0 /* FloatingActionButton.swift in Sources */,
 				91A096802C76399900E082DD /* ExpenseDetailView.swift in Sources */,
+				9155334B2C7BF9120057DCD1 /* CategoryDetailView.swift in Sources */,
 				91094A232C77E24A00611BC0 /* CategoryListView.swift in Sources */,
-				9131DCE32C740E390056732F /* CategoryViewModel.swift in Sources */,
+				9131DCE32C740E390056732F /* CategoryDetailViewModel.swift in Sources */,
 				9121A3902C7B858D009E815B /* CaptureExpenseViewModel.swift in Sources */,
 				91841D3D2C7BD63F00F9EFDF /* UIImage+Extension.swift in Sources */,
 				9121A3822C796B39009E815B /* ExpenseDTO.swift in Sources */,

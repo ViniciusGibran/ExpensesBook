@@ -31,9 +31,7 @@ class ExpenseHistoryViewModel: ObservableObject, StateViewModel {
             }
             
             self.expensesByMonth = groupedExpensesByMonth
-            
-            if expenses.isEmpty { setState(.empty) }
-            else { setState(.success) }
+            setState(expenses.isEmpty ? .empty : .success)
             
         } catch {
             setState(.error(error))

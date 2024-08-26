@@ -19,7 +19,7 @@ struct Category: Identifiable, Codable, Hashable {
     var coloredCircle: Text {
         Text("●")
             .foregroundColor(Color(hex: color) ?? .white)
-            .font(.system(size: 18))
+            .font(.system(size: 16))
     }
     
     // MARK: - Codable
@@ -45,20 +45,12 @@ struct Category: Identifiable, Codable, Hashable {
         self.color = dto.color
     }
 
-    /*
     // Custom Decodable initializer
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(ObjectId.self, forKey: .id)
+        // Generate id if it's missing from the JSON
+        id = try container.decodeIfPresent(ObjectId.self, forKey: .id) ?? ObjectId.generate()
         name = try container.decode(String.self, forKey: .name)
         color = try container.decode(String.self, forKey: .color)
     }
-
-    // Encodable method
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(name, forKey: .name)
-        try container.encode(color, forKey: .color)
-    }*/
 }

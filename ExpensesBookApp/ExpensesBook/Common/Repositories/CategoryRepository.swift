@@ -8,9 +8,9 @@
 import Foundation
 
 protocol CategoryRepositoryProtocol {
-    func getAllCategories() async -> [Category]
-    func saveCategory(_ category: Category) async
-    func deleteCategory(_ category: Category) async
+    func getAllCategories() async throws -> [Category]
+    func saveCategory(_ category: Category) async throws
+    func deleteCategory(_ category: Category) async throws
 }
 
 class CategoryRepository: CategoryRepositoryProtocol {
@@ -20,36 +20,35 @@ class CategoryRepository: CategoryRepositoryProtocol {
         self.realmDataManager = realmDataManager
     }
     
-    func getAllCategories() async -> [Category] {
-        do {
-            // Fetch the CategoryDTOs from Realm
-            let categoryDTOs = try await realmDataManager.loadAllAsync(CategoryDTO.self)
-            
-            // Convert DTOs to Struct Models
-            let categories = categoryDTOs.map { Category(from: $0) }
-            
-            return categories
-        } catch {
-            print("Error fetching categories: \(error.localizedDescription)")
-            return []
+    func getAllCategories() async throws -> [Category] {
+        let existingCategories = try await realmDataManager.loadAllAsync(CategoryDTO.self)
+        
+        if existingCategories.isEmpty {
+            try await saveDefaultCategories()
         }
+        
+        return try await realmDataManager.loadAllAsync(CategoryDTO.self).map { Category(from: $0) }
     }
     
-    func saveCategory(_ category: Category) async {
-        do {
-            let categoryDTO = CategoryDTO(from: category)
-            try await realmDataManager.saveAsync(categoryDTO)
-        } catch {
-            print("Error saving category: \(error.localizedDescription)")
-        }
+    func saveCategory(_ category: Category) async throws {
+        let categoryDTO = CategoryDTO(from: category)
+        try await realmDataManager.saveAsync(categoryDTO)
     }
     
-    func deleteCategory(_ category: Category) async {
-        do {
-            let categoryDTO = CategoryDTO(from: category)
-            try await realmDataManager.deleteAsync(categoryDTO)
-        } catch {
-            print("Error deleting category: \(error.localizedDescription)")
+    func deleteCategory(_ category: Category) async throws {
+        let categoryDTO = CategoryDTO(from: category)
+        try await realmDataManager.deleteAsync(categoryDTO)
+    }
+    
+    private func saveDefaultCategories() async throws {
+        guard let url = Bundle.main.url(forResource: "default_categories", withExtension: "json"),
+              let data = try? Data(contentsOf: url) else { return }
+
+        let decoder = JSONDecoder()
+        let defaultCategories = try decoder.decode([Category].self, from: data)
+
+        for category in defaultCategories {
+            try await saveCategory(category)
         }
     }
 }
