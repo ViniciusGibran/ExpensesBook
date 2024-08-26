@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Food",
+        "color": "#FF6347"
+    },
+    {
+        "name": "Travel",
+        "color": "#1E90FF"
+    },
+    {
+        "name": "Shopping",
+        "color": "#32CD32"
+    },
+    {
+        "name": "Health",
+        "color": "#FF4500"
+    },
+    {
+        "name": "Entertainment",
+        "color": "#FFD700"
+    },
+    {
+        "name": "Transportation",
+        "color": "#4682B4"
+    },
+    {
+        "name": "Utilities",
+        "color": "#8A2BE2"
+    },
+    {
+        "name": "Education",
+        "color": "#20B2AA"
+    },
+    {
+        "name": "Insurance",
+        "color": "#FF69B4"
+    },
+    {
+        "name": "Savings",
+        "color": "#2E8B57"
+    },
+    {
+        "name": "Investments",
+        "color": "#6A5ACD"
+    },
+    {
+        "name": "Gifts",
+        "color": "#DB7093"
+    },
+    {
+        "name": "Miscellaneous",
+        "color": "#708090"
+    }
+]
