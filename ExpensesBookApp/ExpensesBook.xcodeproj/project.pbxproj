@@ -29,7 +29,7 @@
 		9131DCC82C7384470056732F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9131DCC72C7384470056732F /* Launch Screen.storyboard */; };
 		9131DCCB2C73B8F00056732F /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCCA2C73B8F00056732F /* Expense.swift */; };
 		9131DCCD2C73B91B0056732F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCCC2C73B91B0056732F /* Category.swift */; };
-		9131DCD22C73BA470056732F /* ExpenseModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCD12C73BA470056732F /* ExpenseModelTests.swift */; };
+		9131DCD22C73BA470056732F /* ExpenseModelDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCD12C73BA470056732F /* ExpenseModelDTOTests.swift */; };
 		9131DCD42C73BA9E0056732F /* CategoryModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9131DCD32C73BA9E0056732F /* CategoryModelTests.swift */; };
 		9131DCD72C73CFE70056732F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCD62C73CFE70056732F /* RealmSwift */; };
 		9131DCD92C73CFE70056732F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCD62C73CFE70056732F /* RealmSwift */; };
@@ -43,6 +43,8 @@
 		9141CFFC2C75FD0900122630 /* DocumentCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141CFFB2C75FD0900122630 /* DocumentCameraView.swift */; };
 		9141CFFE2C75FD4800122630 /* CaptureExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141CFFD2C75FD4800122630 /* CaptureExpenseView.swift */; };
 		9155334B2C7BF9120057DCD1 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9155334A2C7BF9120057DCD1 /* CategoryDetailView.swift */; };
+		9155334F2C7C9A0A0057DCD1 /* ExpenseRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9155334E2C7C9A0A0057DCD1 /* ExpenseRepositoryTests.swift */; };
+		915533512C7CAEF10057DCD1 /* CategoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915533502C7CAEF10057DCD1 /* CategoryRepositoryTests.swift */; };
 		91841D3D2C7BD63F00F9EFDF /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91841D3C2C7BD63F00F9EFDF /* UIImage+Extension.swift */; };
 		91841D412C7BDB0500F9EFDF /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91841D402C7BDB0500F9EFDF /* Image+Extension.swift */; };
 		91A0967E2C76099F00E082DD /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9131DCB72C736EBF0056732F /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -116,7 +118,7 @@
 		9131DCC72C7384470056732F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9131DCCA2C73B8F00056732F /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		9131DCCC2C73B91B0056732F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		9131DCD12C73BA470056732F /* ExpenseModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseModelTests.swift; sourceTree = "<group>"; };
+		9131DCD12C73BA470056732F /* ExpenseModelDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseModelDTOTests.swift; sourceTree = "<group>"; };
 		9131DCD32C73BA9E0056732F /* CategoryModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelTests.swift; sourceTree = "<group>"; };
 		9131DCDA2C73EA210056732F /* RealmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataManager.swift; sourceTree = "<group>"; };
 		9131DCDC2C73EAEE0056732F /* ExpenseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRepository.swift; sourceTree = "<group>"; };
@@ -128,6 +130,8 @@
 		9141CFFB2C75FD0900122630 /* DocumentCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCameraView.swift; sourceTree = "<group>"; };
 		9141CFFD2C75FD4800122630 /* CaptureExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureExpenseView.swift; sourceTree = "<group>"; };
 		9155334A2C7BF9120057DCD1 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
+		9155334E2C7C9A0A0057DCD1 /* ExpenseRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRepositoryTests.swift; sourceTree = "<group>"; };
+		915533502C7CAEF10057DCD1 /* CategoryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepositoryTests.swift; sourceTree = "<group>"; };
 		91841D3C2C7BD63F00F9EFDF /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		91841D402C7BDB0500F9EFDF /* Image+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
 		91A0967F2C76399900E082DD /* ExpenseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailView.swift; sourceTree = "<group>"; };
@@ -247,7 +251,6 @@
 			children = (
 				9131DCCF2C73BA290056732F /* Common */,
 				9131DCCE2C73BA240056732F /* Modules */,
-				9131DC982C7369460056732F /* ExpensesBookTests.swift */,
 			);
 			path = ExpensesBookTests;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 		9131DCCE2C73BA240056732F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				9131DC982C7369460056732F /* ExpensesBookTests.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -405,18 +409,18 @@
 		9131DCCF2C73BA290056732F /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				9131DCD02C73BA350056732F /* Models */,
+				9155334C2C7C82540057DCD1 /* Repositories */,
 			);
 			path = Common;
 			sourceTree = "<group>";
 		};
-		9131DCD02C73BA350056732F /* Models */ = {
+		9131DCD02C73BA350056732F /* ModelsDTO */ = {
 			isa = PBXGroup;
 			children = (
-				9131DCD12C73BA470056732F /* ExpenseModelTests.swift */,
+				9131DCD12C73BA470056732F /* ExpenseModelDTOTests.swift */,
 				9131DCD32C73BA9E0056732F /* CategoryModelTests.swift */,
 			);
-			path = Models;
+			path = ModelsDTO;
 			sourceTree = "<group>";
 		};
 		9131DCD52C73CFE70056732F /* Frameworks */ = {
@@ -424,6 +428,24 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9155334C2C7C82540057DCD1 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				9155334D2C7C826D0057DCD1 /* Data */,
+				9155334E2C7C9A0A0057DCD1 /* ExpenseRepositoryTests.swift */,
+				915533502C7CAEF10057DCD1 /* CategoryRepositoryTests.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		9155334D2C7C826D0057DCD1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9131DCD02C73BA350056732F /* ModelsDTO */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		91841D3B2C7BD62000F9EFDF /* Extensions */ = {
@@ -614,9 +636,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9131DCD22C73BA470056732F /* ExpenseModelTests.swift in Sources */,
+				9131DCD22C73BA470056732F /* ExpenseModelDTOTests.swift in Sources */,
 				9131DC992C7369460056732F /* ExpensesBookTests.swift in Sources */,
+				9155334F2C7C9A0A0057DCD1 /* ExpenseRepositoryTests.swift in Sources */,
 				9131DCD42C73BA9E0056732F /* CategoryModelTests.swift in Sources */,
+				915533512C7CAEF10057DCD1 /* CategoryRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,7 +861,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBookTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -857,7 +881,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBookTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -876,7 +900,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBookUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -895,7 +919,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GDBMB7F46R;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = viniciusgibran.ExpensesBookUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -15,10 +15,16 @@ enum RealmError: Error {
 }
 
 class RealmDataManager {
-
-    // Dedicated serial queue for all Realm operations
-    internal let realmQueue = DispatchQueue(label: "com.expensesbook.realmQueue", qos: .userInitiated)
+    private let realmQueue = DispatchQueue(label: "com.expensesbook.realmQueue", qos: .userInitiated)
+    private let realmConfiguration: Realm.Configuration
     
+    init(configuration: Realm.Configuration = Realm.Configuration.defaultConfiguration) {
+        self.realmConfiguration = configuration
+    }
+    
+    private func getRealm() throws -> Realm {
+        return try Realm(configuration: realmConfiguration)
+    }
     // MARK: - Load Items
 
     func loadAsync<T: Object>(_ type: T.Type, byPrimaryKey key: Any) async throws -> T? {
@@ -27,7 +33,7 @@ class RealmDataManager {
                 var frozenObject: T?
                 defer { frozenObject = nil }
                 do {
-                    let realm = try Realm()
+                    let realm = try self.getRealm()
                     guard let object = realm.object(ofType: T.self, forPrimaryKey: key) else {
                         throw RealmError.objectNotFound(message: "Object of type \(T.self) with key \(key) was not found.")
                     }
@@ -48,10 +54,17 @@ class RealmDataManager {
                 var frozenResults: [T] = []
                 defer { frozenResults.removeAll() }
                 do {
-                    let realm = try Realm()
-                    let results = realm.objects(T.self)
-                    frozenResults = results.map { $0.freeze() }
-                    continuation.resume(returning: frozenResults)
+                    let realm = try self.getRealm()
+                    let results = realm.objects(type)
+                    print("Results count before freezing: \(results.count)")
+                    
+                    // Check if the results have elements before freezing
+                    if !results.isEmpty {
+                        let frozenResults = results.freeze()
+                        continuation.resume(returning: Array(frozenResults))
+                    } else {
+                        continuation.resume(returning: [])
+                    }
                 } catch {
                     print("Error fetching objects: \(error.localizedDescription)")
                     continuation.resume(throwing: RealmError.operationFailed(error: error))
@@ -66,9 +79,9 @@ class RealmDataManager {
         try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 do {
-                    let realm = try Realm()
+                    let realm = try self.getRealm()
                     try realm.write {
-                        realm.add(object, update: .modified) // Use .modified for updates as well
+                        realm.add(object, update: .modified)
                     }
                     continuation.resume()
                 } catch {
@@ -83,7 +96,7 @@ class RealmDataManager {
         try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 do {
-                    let realm = try Realm()
+                    let realm = try self.getRealm()
                     try realm.write {
                         realm.add(objects, update: .modified) // Same as above
                     }
@@ -102,7 +115,7 @@ class RealmDataManager {
         try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 do {
-                    let realm = try Realm()
+                    let realm = try self.getRealm()
                     guard let id = object.value(forKey: "id"),
                           let existingObject = realm.object(ofType: T.self, forPrimaryKey:id)
                     else { throw RealmError.objectNotFound(message: "Object of type \(T.self) not found.") }
@@ -124,13 +137,22 @@ class RealmDataManager {
         return await withCheckedContinuation { continuation in
             realmQueue.async {
                 do {
-                    let realm = try Realm()
+                    let realm = try self.getRealm()
                     let objectExists = realm.object(ofType: T.self, forPrimaryKey: key) != nil
                     continuation.resume(returning: objectExists)
                 } catch {
                     print("Error checking existence: \(error.localizedDescription)")
                     continuation.resume(returning: false)
                 }
+            }
+        }
+    }
+    
+    func clearDatabase() throws {
+        try realmQueue.sync {
+            let realm = try getRealm()
+            try realm.write {
+                realm.deleteAll()
             }
         }
     }

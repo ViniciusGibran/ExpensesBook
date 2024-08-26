@@ -69,26 +69,24 @@ struct StateView<Content: View>: View {
                 Image(systemName: "folder.badge.plus")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 100, height: 100)
+                    .frame(width: 80, height: 80)
                     .foregroundColor(.gray)
-                    .padding(.bottom, 20)
                 Text("No items found")
                     .font(.title3)
                     .foregroundColor(.gray)
-                    .padding(.bottom, 10)
             }
         case .error(let error):
             VStack {
                 Image(systemName: "exclamationmark.triangle")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 70, height: 70)
+                    .frame(width: 80, height: 80)
                     .foregroundColor(.red)
                 Text(error.localizedDescription)
                     .font(.subheadline)
                     .foregroundColor(.red)
-                    .padding()
             }
         }
+        
     }
 }
